@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="A practical five-night meal planner with favourites, smart meal generation and a consolidated shopping list.">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Meal Planner">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<title>Weekly Meal Planner</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--green:#16a34a;--blue:#2563eb;}
+*{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;background:rgba(245,245,247,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:calc(12px + env(safe-area-inset-top)) 14px 12px}
+h1{font-size:25px;margin:0;letter-spacing:-.45px} .sub{font-size:13px;color:var(--muted);margin-top:3px}
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;background:#e8e9ec;padding:4px;border-radius:14px;margin-top:11px}
+.tabs button{border:0;background:transparent;border-radius:10px;padding:9px 7px;font-size:13px;font-weight:800;color:#5d626b}
+.tabs button.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+main{max-width:780px;margin:auto;padding:14px} .panel{display:none} .panel.active{display:block}
+.card,.meal-card{background:#fff;border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.035)}
+.generator{background:#111827;color:#fff} .generator p{font-size:13px;line-height:1.45;color:#d1d5db;margin:6px 0 12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:inherit;cursor:pointer} .primary,.secondary,.danger{border:0;border-radius:11px;padding:10px 12px;font-size:13px;font-weight:800}
+.primary{background:#fff;color:#111827} .secondary{background:#303846;color:#fff} .danger{background:#fee2e2;color:#b91c1c}
+.day{font-size:12px;color:var(--muted);font-weight:850;letter-spacing:.07em;text-transform:uppercase}
+h2{font-size:20px;line-height:1.2;margin:5px 0 9px;letter-spacing:-.25px}
+.meta{display:flex;gap:7px;flex-wrap:wrap} .meta span{font-size:12px;font-weight:750;background:#f0f2f4;padding:6px 9px;border-radius:999px}
+.meal-actions{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0 2px} .action-btn{border:1px solid #d9dde3;background:#fff;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:800;color:#374151}
+.action-btn.on{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8} .action-btn.fav-on{background:#fffbeb;border-color:#fcd34d;color:#92400e} .action-btn.swap{background:#f3f4f6}
+details{border-top:1px solid var(--line);padding-top:10px;margin-top:10px} summary{font-weight:800;cursor:pointer;list-style:none} summary::-webkit-details-marker{display:none}
+ul,ol{padding-left:21px} li{margin:6px 0;line-height:1.42}
+.shop-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px} .badge{font-size:12px;font-weight:850;background:#ecfdf3;color:#166534;padding:5px 8px;border-radius:999px}
+.progress-track{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden} .progress-bar{height:100%;width:0;background:var(--green);transition:width .2s ease}
+.aisle-title{font-size:13px;text-transform:uppercase;letter-spacing:.06em;font-weight:850;color:var(--muted);margin:18px 2px 7px}
+.shop-row{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:14px;padding:13px 14px;margin-bottom:7px}
+.shop-check{appearance:none;-webkit-appearance:none;width:24px;height:24px;min-width:24px;border:2px solid #c5c9cf;border-radius:7px;background:#fff;margin:0;position:relative}
+.shop-check:checked{background:var(--green);border-color:var(--green)} .shop-check:checked:after{content:"✓";position:absolute;left:4px;top:-2px;color:#fff;font-weight:900;font-size:18px}
+.shop-row.checked{opacity:.48} .shop-row.checked .shop-copy{text-decoration:line-through} .shop-copy{font-size:16px;line-height:1.3} .shop-copy b{display:block} .shop-copy small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.hidden{display:none!important}
+.empty{background:#fff;border-radius:18px;padding:22px;text-align:center;color:var(--muted)} .fav-grid .meal-card{padding-bottom:13px}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(30px);opacity:0;background:#111827;color:#fff;border-radius:999px;padding:10px 14px;font-size:13px;font-weight:750;z-index:50;transition:.2s;pointer-events:none;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)} .error{display:none;background:#fee2e2;color:#991b1b;padding:10px 14px;font-size:13px;font-weight:700} .error.show{display:block}
+</style>
+</head>
+<body>
+<div id="errorBanner" class="error"></div>
+<header>
+ <h1>Weekly Meal Planner</h1>
+ <div class="sub">4 portions per dinner · Tuesday reserved for the longer meal</div>
+ <div class="tabs">
+  <button class="tab-btn active" data-tab="meals">Meals</button>
+  <button class="tab-btn" data-tab="shopping">Shopping</button>
+  <button class="tab-btn" data-tab="favourites">Favourites</button>
+ </div>
+</header>
+<main>
+<section id="panel-meals" class="panel active">
+ <div class="card generator">
+  <h2 style="margin-top:0">Generate a new week</h2>
+  <p>Creates five different high-protein dinners. The current five are excluded from the next generated week. Meals you like or favourite receive more weight when they become eligible again in later weeks.</p>
+  <div class="row">
+   <button id="generateWeek" class="primary">Generate New Week</button>
+   <button id="restoreStarter" class="secondary">Restore Starter Week</button>
+  </div>
+ </div>
+ <div id="mealHost">
+<article class="meal-card" data-day-index="0" data-recipe-id="piri_chicken_bowls">
+ <div class="day">Monday</div>
+ <h2>Piri-Piri Chicken Rice &amp; Bean Bowls</h2>
+ <div class="meta"><span>35 min</span><span>4 portions</span><span>45–50g protein</span></div>
+ <div class="meal-actions">
+   <button class="action-btn" data-action="like" data-recipe="piri_chicken_bowls">♡ Like</button>
+   <button class="action-btn" data-action="favourite" data-recipe="piri_chicken_bowls">☆ Favourite</button>
+   <button class="action-btn swap" data-action="swap" data-index="0">↻ Swap</button>
+ </div>
+ <details><summary>Ingredients</summary><ul><li>650g skinless chicken breast, cut into 2.5cm cubes</li><li>300g dry long-grain rice</li><li>1 × 400g tin kidney beans, drained and rinsed</li><li>1 red pepper (~150g), cut into 1.5cm pieces</li><li>1 medium brown onion (~150g), cut into 1cm dice</li><li>2 medium carrots (~160g total), peeled and sliced into 3–4mm half-moons</li><li>2 garlic cloves, finely grated</li><li>150g high-protein Greek-style yoghurt</li><li>15ml (1 tbsp) vegetable or olive oil</li><li>Chicken seasoning: 2 tsp smoked paprika, 1 tsp garlic granules, 1 tsp dried oregano, ½ tsp chilli powder, ¾ tsp fine salt, ½ tsp black pepper</li><li>Yoghurt sauce: 150g yoghurt, 1 garlic clove, ½ tsp smoked paprika, ¼ tsp salt, 1 tsp lemon juice and 1–2 tsp cold water</li></ul></details>
+ <details><summary>Method</summary><ol><li>Rinse 300g rice under cold water. Add it to a saucepan with 600ml cold water and ½ tsp salt. Bring to the boil, cover, reduce to the lowest heat and cook for 12 minutes. Turn the heat off and leave covered for 8 minutes.</li><li>Toss the chicken cubes with 15ml oil, 2 tsp smoked paprika, 1 tsp garlic granules, 1 tsp oregano, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper.</li><li>Heat a large frying pan over medium-high heat. Cook the chicken for 8–10 minutes, turning regularly, until browned and cooked through. Remove to a plate.</li><li>Add the onion and carrots to the same pan and cook for 4 minutes. Add the pepper and cook for 3–4 minutes. Add the drained kidney beans and cook for 2 minutes.</li><li>Mix the yoghurt sauce ingredients until smooth. Divide the rice, vegetables, beans and chicken between four bowls and spoon roughly 35–40g sauce over each.</li></ol></details>
+</article>
+
+<article class="meal-card" data-day-index="1" data-recipe-id="turkey_kofta">
+ <div class="day">Tuesday · Day off</div>
+ <h2>Turkey Kofta &amp; Crispy Potato Traybake</h2>
+ <div class="meta"><span>55 min</span><span>4 portions</span><span>~40g protein</span></div>
+ <div class="meal-actions">
+   <button class="action-btn" data-action="like" data-recipe="turkey_kofta">♡ Like</button>
+   <button class="action-btn" data-action="favourite" data-recipe="turkey_kofta">☆ Favourite</button>
+   <button class="action-btn swap" data-action="swap" data-index="1">↻ Swap</button>
+ </div>
+ <details><summary>Ingredients</summary><ul><li>500g lean turkey mince</li><li>1kg potatoes, cut into even 2cm cubes</li><li>1 red pepper, cut into 2cm pieces</li><li>1 medium brown onion: half cut into very fine 3–4mm dice and half sliced into 5mm strips</li><li>1 large egg</li><li>2 garlic cloves, finely grated</li><li>200g high-protein Greek-style yoghurt</li><li>30ml (2 tbsp) oil</li><li>Potatoes: 1½ tsp smoked paprika, ½ tsp garlic granules, ½ tsp dried oregano, ¾ tsp salt, ¼ tsp black pepper</li><li>Koftas: 1 tsp smoked paprika, 1 tsp ground cumin, ½ tsp dried oregano, ½ tsp salt, ¼ tsp black pepper</li><li>Garlic yoghurt: 200g yoghurt, 1 garlic clove, ¼ tsp salt, ¼ tsp black pepper and 1 tsp lemon juice</li></ul></details>
+ <details><summary>Method</summary><ol><li>Heat the oven to 220°C conventional / 200°C fan / Gas 7.</li><li>Toss the 2cm potato cubes with 22.5ml (1½ tbsp) oil, 1½ tsp smoked paprika, ½ tsp garlic granules, ½ tsp oregano, ¾ tsp salt and ¼ tsp black pepper. Roast for 20 minutes.</li><li>Mix the turkey mince, finely diced half-onion, 1 grated garlic clove, egg, 1 tsp paprika, 1 tsp cumin, ½ tsp oregano, ½ tsp salt and ¼ tsp black pepper only until combined.</li><li>Divide the mixture into 12 pieces of roughly 45g and shape each into a kofta about 7cm long and 2.5cm thick.</li><li>Turn the potatoes. Add the pepper, sliced onion and remaining 7.5ml oil. Add the koftas with gaps between them and roast for 20–25 minutes, turning the koftas after about 12 minutes.</li><li>Mix the yoghurt, remaining garlic, ¼ tsp salt, ¼ tsp pepper and 1 tsp lemon juice. Serve three koftas per person with one-quarter of the potatoes and vegetables.</li></ol></details>
+</article>
+
+<article class="meal-card" data-day-index="2" data-recipe-id="beef_spaghetti">
+ <div class="day">Wednesday</div>
+ <h2>Lean Beef &amp; Bean Tomato Spaghetti</h2>
+ <div class="meta"><span>45 min</span><span>4 portions</span><span>40–45g protein</span></div>
+ <div class="meal-actions">
+   <button class="action-btn" data-action="like" data-recipe="beef_spaghetti">♡ Like</button>
+   <button class="action-btn" data-action="favourite" data-recipe="beef_spaghetti">☆ Favourite</button>
+   <button class="action-btn swap" data-action="swap" data-index="2">↻ Swap</button>
+ </div>
+ <details><summary>Ingredients</summary><ul><li>500g 5%-fat beef mince</li><li>350g dry spaghetti</li><li>1 × 400g tin kidney beans, drained</li><li>2 × 400g tins chopped tomatoes</li><li>1 medium brown onion, cut into 5mm dice</li><li>1 medium carrot (~80g), coarsely grated</li><li>2 garlic cloves, finely grated</li><li>250g frozen mixed vegetables</li><li>15ml (1 tbsp) oil</li><li>15g (1 tbsp) tomato purée</li><li>1½ tsp dried oregano</li><li>1 tsp dried basil</li><li>1 tsp smoked paprika</li><li>¾ tsp salt</li><li>½ tsp black pepper</li><li>¼ tsp chilli flakes</li></ul></details>
+ <details><summary>Method</summary><ol><li>Heat 15ml oil in a large pan over medium heat. Add the onion and carrot and cook for 5 minutes. Add the garlic and cook for 30 seconds.</li><li>Increase the heat to medium-high. Add the beef and cook for 6–8 minutes, breaking it into small pieces until properly browned.</li><li>Stir in 15g tomato purée and cook for 1 minute. Add the tomatoes, kidney beans, frozen vegetables, oregano, basil, paprika, salt, black pepper, chilli flakes and 100ml water.</li><li>Bring to a gentle simmer and cook uncovered for 20 minutes, stirring every few minutes. Add another 50ml water only if it becomes too thick.</li><li>Cook 350g spaghetti in well-salted boiling water until al dente according to the packet, usually 9–11 minutes. Reserve 100ml pasta water before draining.</li><li>Combine the pasta and sauce. Add 30–60ml pasta water as required so the sauce evenly coats the spaghetti.</li></ol></details>
+</article>
+
+<article class="meal-card" data-day-index="3" data-recipe-id="sticky_fried_rice">
+ <div class="day">Thursday</div>
+ <h2>Sticky Chicken Egg-Fried Rice</h2>
+ <div class="meta"><span>35 min</span><span>4 portions</span><span>45–50g protein</span></div>
+ <div class="meal-actions">
+   <button class="action-btn" data-action="like" data-recipe="sticky_fried_rice">♡ Like</button>
+   <button class="action-btn" data-action="favourite" data-recipe="sticky_fried_rice">☆ Favourite</button>
+   <button class="action-btn swap" data-action="swap" data-index="3">↻ Swap</button>
+ </div>
+ <details><summary>Ingredients</summary><ul><li>650g chicken breast, cut into 2cm cubes</li><li>300g dry long-grain rice</li><li>500g frozen mixed vegetables</li><li>3 large eggs</li><li>3 garlic cloves, finely grated</li><li>15ml (1 tbsp) vegetable oil</li><li>Chicken: 1 tsp smoked paprika, ½ tsp garlic granules, ½ tsp black pepper and ¼ tsp salt</li><li>Sauce: 45ml soy sauce, 30ml sriracha, 15ml water, 1 tsp honey or brown sugar and ½ tsp garlic granules</li></ul></details>
+ <details><summary>Method</summary><ol><li>Cook 300g rice with 600ml water using the covered absorption method: 12 minutes on the lowest heat, then 8 minutes resting off the heat. Spread the cooked rice over a large plate or tray for 10 minutes so excess steam escapes.</li><li>Season the chicken with 1 tsp smoked paprika, ½ tsp garlic granules, ½ tsp black pepper and ¼ tsp salt.</li><li>Mix 45ml soy sauce, 30ml sriracha, 15ml water, 1 tsp honey or brown sugar and ½ tsp garlic granules.</li><li>Heat a large frying pan or wok over medium-high heat. Add 7.5ml oil and cook the chicken for 8–10 minutes. Remove.</li><li>Add the remaining 7.5ml oil and frozen vegetables. Fry for 5–6 minutes until hot and most surface moisture has evaporated. Add the garlic for 30 seconds.</li><li>Push the vegetables aside. Scramble the eggs for 60–90 seconds. Add the rice, increase to high heat and stir-fry for 3–4 minutes.</li><li>Return the chicken, pour in the sauce and toss for 1–2 minutes until everything is evenly coated.</li></ol></details>
+</article>
+
+<article class="meal-card" data-day-index="4" data-recipe-id="turkey_quesadillas">
+ <div class="day">Friday</div>
+ <h2>Turkey, Bean &amp; Cheese Quesadillas</h2>
+ <div class="meta"><span>30 min</span><span>4 portions</span><span>40–45g protein</span></div>
+ <div class="meal-actions">
+   <button class="action-btn" data-action="like" data-recipe="turkey_quesadillas">♡ Like</button>
+   <button class="action-btn" data-action="favourite" data-recipe="turkey_quesadillas">☆ Favourite</button>
+   <button class="action-btn swap" data-action="swap" data-index="4">↻ Swap</button>
+ </div>
+ <details><summary>Ingredients</summary><ul><li>500g lean turkey mince</li><li>8 large flour tortilla wraps</li><li>1 × 400g tin kidney beans, drained and rinsed</li><li>1 red pepper, cut into 1cm dice</li><li>1 medium brown onion, cut into 5mm dice</li><li>160g mature cheddar, grated</li><li>150g high-protein Greek-style yoghurt</li><li>15ml (1 tbsp) oil</li><li>Turkey seasoning: 2 tsp smoked paprika, 1 tsp ground cumin, ½ tsp garlic granules, ½ tsp chilli powder, ½ tsp dried oregano, ¾ tsp salt and ¼ tsp black pepper</li><li>Yoghurt dip: 150g yoghurt, ½ tsp smoked paprika, ¼ tsp garlic granules and ¼ tsp salt</li></ul></details>
+ <details><summary>Method</summary><ol><li>Heat 15ml oil in a large frying pan over medium-high heat. Add the onion and pepper and cook for 5 minutes.</li><li>Add the turkey mince, break it into small pieces and cook for 7–8 minutes.</li><li>Add 2 tsp paprika, 1 tsp cumin, ½ tsp garlic granules, ½ tsp chilli powder, ½ tsp oregano, ¾ tsp salt and ¼ tsp pepper. Cook for 1 minute.</li><li>Add the kidney beans and cook for 2 minutes, lightly crushing roughly one-third with the back of a spoon.</li><li>Divide the filling between four tortillas, stopping 2cm from the edge. Sprinkle exactly 40g cheddar over each and top with another tortilla.</li><li>Cook each quesadilla in a clean dry frying pan over medium heat for 2½–3 minutes per side. Rest for 2 minutes before cutting. Mix the yoghurt dip and serve 35–40g per person.</li></ol></details>
+</article></div>
+</section>
+
+<section id="panel-shopping" class="panel">
+ <div class="card">
+  <div class="shop-head">
+   <div><h2 style="margin:0 0 3px">Shopping progress</h2><div id="progressText" class="sub">0 items picked up</div></div>
+   <span id="progressPct" class="badge">0%</span>
+  </div>
+  <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+  <div class="row" style="margin-top:12px">
+   <button id="hideChecked" class="secondary">Hide checked</button>
+   <button id="resetChecks" class="danger">Reset ticks</button>
+  </div>
+ </div>
+ <div id="shoppingHost"><div class="aisle-title">Fruit &amp; veg</div>
+
+<label class="shop-row" data-shop-key="Brown onions|count">
+ <input type="checkbox" class="shop-check" data-key="Brown onions|count">
+ <span class="shop-copy"><b>Brown onions</b><small>4</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Carrots|count">
+ <input type="checkbox" class="shop-check" data-key="Carrots|count">
+ <span class="shop-copy"><b>Carrots</b><small>3</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Garlic|clove">
+ <input type="checkbox" class="shop-check" data-key="Garlic|clove">
+ <span class="shop-copy"><b>Garlic</b><small>9 cloves</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Lemon|count">
+ <input type="checkbox" class="shop-check" data-key="Lemon|count">
+ <span class="shop-copy"><b>Lemon</b><small>¼</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Potatoes|g">
+ <input type="checkbox" class="shop-check" data-key="Potatoes|g">
+ <span class="shop-copy"><b>Potatoes</b><small>1000g (1kg)</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Red peppers|count">
+ <input type="checkbox" class="shop-check" data-key="Red peppers|count">
+ <span class="shop-copy"><b>Red peppers</b><small>3</small></span>
+</label>
+<div class="aisle-title">Fresh meat</div>
+
+<label class="shop-row" data-shop-key="5% lean beef mince|g">
+ <input type="checkbox" class="shop-check" data-key="5% lean beef mince|g">
+ <span class="shop-copy"><b>5% lean beef mince</b><small>500g</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Chicken breast|g">
+ <input type="checkbox" class="shop-check" data-key="Chicken breast|g">
+ <span class="shop-copy"><b>Chicken breast</b><small>1300g (1.3kg)</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Lean turkey mince|g">
+ <input type="checkbox" class="shop-check" data-key="Lean turkey mince|g">
+ <span class="shop-copy"><b>Lean turkey mince</b><small>1000g (1kg)</small></span>
+</label>
+<div class="aisle-title">Dairy &amp; eggs</div>
+
+<label class="shop-row" data-shop-key="High-protein Greek-style yoghurt|g">
+ <input type="checkbox" class="shop-check" data-key="High-protein Greek-style yoghurt|g">
+ <span class="shop-copy"><b>High-protein Greek-style yoghurt</b><small>500g</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Large eggs|count">
+ <input type="checkbox" class="shop-check" data-key="Large eggs|count">
+ <span class="shop-copy"><b>Large eggs</b><small>4</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Mature cheddar|g">
+ <input type="checkbox" class="shop-check" data-key="Mature cheddar|g">
+ <span class="shop-copy"><b>Mature cheddar</b><small>160g</small></span>
+</label>
+<div class="aisle-title">Bakery / wraps</div>
+
+<label class="shop-row" data-shop-key="Large flour tortilla wraps|count">
+ <input type="checkbox" class="shop-check" data-key="Large flour tortilla wraps|count">
+ <span class="shop-copy"><b>Large flour tortilla wraps</b><small>8</small></span>
+</label>
+<div class="aisle-title">Pasta, rice &amp; dry goods</div>
+
+<label class="shop-row" data-shop-key="Long-grain rice|g">
+ <input type="checkbox" class="shop-check" data-key="Long-grain rice|g">
+ <span class="shop-copy"><b>Long-grain rice</b><small>600g</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Spaghetti|g">
+ <input type="checkbox" class="shop-check" data-key="Spaghetti|g">
+ <span class="shop-copy"><b>Spaghetti</b><small>350g</small></span>
+</label>
+<div class="aisle-title">Tinned foods</div>
+
+<label class="shop-row" data-shop-key="Chopped tomatoes|tin">
+ <input type="checkbox" class="shop-check" data-key="Chopped tomatoes|tin">
+ <span class="shop-copy"><b>Chopped tomatoes</b><small>2 × 400g tins</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Kidney beans|tin">
+ <input type="checkbox" class="shop-check" data-key="Kidney beans|tin">
+ <span class="shop-copy"><b>Kidney beans</b><small>3 × 400g tins</small></span>
+</label>
+<div class="aisle-title">Cooking sauces &amp; condiments</div>
+
+<label class="shop-row" data-shop-key="Cooking oil|ml">
+ <input type="checkbox" class="shop-check" data-key="Cooking oil|ml">
+ <span class="shop-copy"><b>Cooking oil</b><small>90ml</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Honey or brown sugar|tsp">
+ <input type="checkbox" class="shop-check" data-key="Honey or brown sugar|tsp">
+ <span class="shop-copy"><b>Honey or brown sugar</b><small>1 tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Lemon juice|ml">
+ <input type="checkbox" class="shop-check" data-key="Lemon juice|ml">
+ <span class="shop-copy"><b>Lemon juice</b><small>10ml</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Soy sauce|ml">
+ <input type="checkbox" class="shop-check" data-key="Soy sauce|ml">
+ <span class="shop-copy"><b>Soy sauce</b><small>45ml</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Sriracha|ml">
+ <input type="checkbox" class="shop-check" data-key="Sriracha|ml">
+ <span class="shop-copy"><b>Sriracha</b><small>30ml</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Tomato purée|g">
+ <input type="checkbox" class="shop-check" data-key="Tomato purée|g">
+ <span class="shop-copy"><b>Tomato purée</b><small>15g</small></span>
+</label>
+<div class="aisle-title">Herbs, spices &amp; seasoning</div>
+
+<label class="shop-row" data-shop-key="Black pepper|tsp">
+ <input type="checkbox" class="shop-check" data-key="Black pepper|tsp">
+ <span class="shop-copy"><b>Black pepper</b><small>2½ tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Chilli flakes|tsp">
+ <input type="checkbox" class="shop-check" data-key="Chilli flakes|tsp">
+ <span class="shop-copy"><b>Chilli flakes</b><small>¼ tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Chilli powder|tsp">
+ <input type="checkbox" class="shop-check" data-key="Chilli powder|tsp">
+ <span class="shop-copy"><b>Chilli powder</b><small>1 tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Dried basil|tsp">
+ <input type="checkbox" class="shop-check" data-key="Dried basil|tsp">
+ <span class="shop-copy"><b>Dried basil</b><small>1 tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Dried oregano|tsp">
+ <input type="checkbox" class="shop-check" data-key="Dried oregano|tsp">
+ <span class="shop-copy"><b>Dried oregano</b><small>4 tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Fine salt|tsp">
+ <input type="checkbox" class="shop-check" data-key="Fine salt|tsp">
+ <span class="shop-copy"><b>Fine salt</b><small>4½ tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Garlic granules|tsp">
+ <input type="checkbox" class="shop-check" data-key="Garlic granules|tsp">
+ <span class="shop-copy"><b>Garlic granules</b><small>3.25 tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Ground cumin|tsp">
+ <input type="checkbox" class="shop-check" data-key="Ground cumin|tsp">
+ <span class="shop-copy"><b>Ground cumin</b><small>2 tsp</small></span>
+</label>
+
+<label class="shop-row" data-shop-key="Smoked paprika|tsp">
+ <input type="checkbox" class="shop-check" data-key="Smoked paprika|tsp">
+ <span class="shop-copy"><b>Smoked paprika</b><small>9.5 tsp</small></span>
+</label>
+<div class="aisle-title">Frozen</div>
+
+<label class="shop-row" data-shop-key="Frozen mixed vegetables|g">
+ <input type="checkbox" class="shop-check" data-key="Frozen mixed vegetables|g">
+ <span class="shop-copy"><b>Frozen mixed vegetables</b><small>750g</small></span>
+</label></div>
+</section>
+
+<section id="panel-favourites" class="panel">
+ <div id="favouritesHost"><div class="empty">Favourite meals will appear here.</div></div>
+</section>
+</main>
+<div id="toast" class="toast"></div>
+
+<script>
+"use strict";
+var RECIPES=[{"id": "piri_chicken_bowls", "title": "Piri-Piri Chicken Rice & Bean Bowls", "time": 35, "protein": "45–50g", "long": false, "ingredients": ["650g skinless chicken breast, cut into 2.5cm cubes", "300g dry long-grain rice", "1 × 400g tin kidney beans, drained and rinsed", "1 red pepper (~150g), cut into 1.5cm pieces", "1 medium brown onion (~150g), cut into 1cm dice", "2 medium carrots (~160g total), peeled and sliced into 3–4mm half-moons", "2 garlic cloves, finely grated", "150g high-protein Greek-style yoghurt", "15ml (1 tbsp) vegetable or olive oil", "Chicken seasoning: 2 tsp smoked paprika, 1 tsp garlic granules, 1 tsp dried oregano, ½ tsp chilli powder, ¾ tsp fine salt, ½ tsp black pepper", "Yoghurt sauce: 150g yoghurt, 1 garlic clove, ½ tsp smoked paprika, ¼ tsp salt, 1 tsp lemon juice and 1–2 tsp cold water"], "method": ["Rinse 300g rice under cold water. Add it to a saucepan with 600ml cold water and ½ tsp salt. Bring to the boil, cover, reduce to the lowest heat and cook for 12 minutes. Turn the heat off and leave covered for 8 minutes.", "Toss the chicken cubes with 15ml oil, 2 tsp smoked paprika, 1 tsp garlic granules, 1 tsp oregano, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper.", "Heat a large frying pan over medium-high heat. Cook the chicken for 8–10 minutes, turning regularly, until browned and cooked through. Remove to a plate.", "Add the onion and carrots to the same pan and cook for 4 minutes. Add the pepper and cook for 3–4 minutes. Add the drained kidney beans and cook for 2 minutes.", "Mix the yoghurt sauce ingredients until smooth. Divide the rice, vegetables, beans and chicken between four bowls and spoon roughly 35–40g sauce over each."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Carrots", 2, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fruit & veg", "Lemon", 0.25, "count"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 150, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Lemon juice", 5, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2.5, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "turkey_kofta", "title": "Turkey Kofta & Crispy Potato Traybake", "time": 55, "protein": "~40g", "long": true, "ingredients": ["500g lean turkey mince", "1kg potatoes, cut into even 2cm cubes", "1 red pepper, cut into 2cm pieces", "1 medium brown onion: half cut into very fine 3–4mm dice and half sliced into 5mm strips", "1 large egg", "2 garlic cloves, finely grated", "200g high-protein Greek-style yoghurt", "30ml (2 tbsp) oil", "Potatoes: 1½ tsp smoked paprika, ½ tsp garlic granules, ½ tsp dried oregano, ¾ tsp salt, ¼ tsp black pepper", "Koftas: 1 tsp smoked paprika, 1 tsp ground cumin, ½ tsp dried oregano, ½ tsp salt, ¼ tsp black pepper", "Garlic yoghurt: 200g yoghurt, 1 garlic clove, ¼ tsp salt, ¼ tsp black pepper and 1 tsp lemon juice"], "method": ["Heat the oven to 220°C conventional / 200°C fan / Gas 7.", "Toss the 2cm potato cubes with 22.5ml (1½ tbsp) oil, 1½ tsp smoked paprika, ½ tsp garlic granules, ½ tsp oregano, ¾ tsp salt and ¼ tsp black pepper. Roast for 20 minutes.", "Mix the turkey mince, finely diced half-onion, 1 grated garlic clove, egg, 1 tsp paprika, 1 tsp cumin, ½ tsp oregano, ½ tsp salt and ¼ tsp black pepper only until combined.", "Divide the mixture into 12 pieces of roughly 45g and shape each into a kofta about 7cm long and 2.5cm thick.", "Turn the potatoes. Add the pepper, sliced onion and remaining 7.5ml oil. Add the koftas with gaps between them and roast for 20–25 minutes, turning the koftas after about 12 minutes.", "Mix the yoghurt, remaining garlic, ¼ tsp salt, ¼ tsp pepper and 1 tsp lemon juice. Serve three koftas per person with one-quarter of the potatoes and vegetables."], "shop": [["Fruit & veg", "Potatoes", 1000, "g"], ["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Lean turkey mince", 500, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 200, "g"], ["Dairy & eggs", "Large eggs", 1, "count"], ["Cooking sauces & condiments", "Cooking oil", 30, "ml"], ["Cooking sauces & condiments", "Lemon juice", 5, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2.5, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 0.5, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1.5, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.75, "tsp"]]}, {"id": "beef_spaghetti", "title": "Lean Beef & Bean Tomato Spaghetti", "time": 45, "protein": "40–45g", "long": false, "ingredients": ["500g 5%-fat beef mince", "350g dry spaghetti", "1 × 400g tin kidney beans, drained", "2 × 400g tins chopped tomatoes", "1 medium brown onion, cut into 5mm dice", "1 medium carrot (~80g), coarsely grated", "2 garlic cloves, finely grated", "250g frozen mixed vegetables", "15ml (1 tbsp) oil", "15g (1 tbsp) tomato purée", "1½ tsp dried oregano", "1 tsp dried basil", "1 tsp smoked paprika", "¾ tsp salt", "½ tsp black pepper", "¼ tsp chilli flakes"], "method": ["Heat 15ml oil in a large pan over medium heat. Add the onion and carrot and cook for 5 minutes. Add the garlic and cook for 30 seconds.", "Increase the heat to medium-high. Add the beef and cook for 6–8 minutes, breaking it into small pieces until properly browned.", "Stir in 15g tomato purée and cook for 1 minute. Add the tomatoes, kidney beans, frozen vegetables, oregano, basil, paprika, salt, black pepper, chilli flakes and 100ml water.", "Bring to a gentle simmer and cook uncovered for 20 minutes, stirring every few minutes. Add another 50ml water only if it becomes too thick.", "Cook 350g spaghetti in well-salted boiling water until al dente according to the packet, usually 9–11 minutes. Reserve 100ml pasta water before draining.", "Combine the pasta and sauce. Add 30–60ml pasta water as required so the sauce evenly coats the spaghetti."], "shop": [["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Carrots", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "5% lean beef mince", 500, "g"], ["Pasta, rice & dry goods", "Spaghetti", 350, "g"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Tinned foods", "Chopped tomatoes", 2, "tin"], ["Frozen", "Frozen mixed vegetables", 250, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Tomato purée", 15, "g"], ["Herbs, spices & seasoning", "Dried oregano", 1.5, "tsp"], ["Herbs, spices & seasoning", "Dried basil", 1, "tsp"], ["Herbs, spices & seasoning", "Smoked paprika", 1, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"], ["Herbs, spices & seasoning", "Chilli flakes", 0.25, "tsp"]]}, {"id": "sticky_fried_rice", "title": "Sticky Chicken Egg-Fried Rice", "time": 35, "protein": "45–50g", "long": false, "ingredients": ["650g chicken breast, cut into 2cm cubes", "300g dry long-grain rice", "500g frozen mixed vegetables", "3 large eggs", "3 garlic cloves, finely grated", "15ml (1 tbsp) vegetable oil", "Chicken: 1 tsp smoked paprika, ½ tsp garlic granules, ½ tsp black pepper and ¼ tsp salt", "Sauce: 45ml soy sauce, 30ml sriracha, 15ml water, 1 tsp honey or brown sugar and ½ tsp garlic granules"], "method": ["Cook 300g rice with 600ml water using the covered absorption method: 12 minutes on the lowest heat, then 8 minutes resting off the heat. Spread the cooked rice over a large plate or tray for 10 minutes so excess steam escapes.", "Season the chicken with 1 tsp smoked paprika, ½ tsp garlic granules, ½ tsp black pepper and ¼ tsp salt.", "Mix 45ml soy sauce, 30ml sriracha, 15ml water, 1 tsp honey or brown sugar and ½ tsp garlic granules.", "Heat a large frying pan or wok over medium-high heat. Add 7.5ml oil and cook the chicken for 8–10 minutes. Remove.", "Add the remaining 7.5ml oil and frozen vegetables. Fry for 5–6 minutes until hot and most surface moisture has evaporated. Add the garlic for 30 seconds.", "Push the vegetables aside. Scramble the eggs for 60–90 seconds. Add the rice, increase to high heat and stir-fry for 3–4 minutes.", "Return the chicken, pour in the sauce and toss for 1–2 minutes until everything is evenly coated."], "shop": [["Fruit & veg", "Garlic", 3, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "Large eggs", 3, "count"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Frozen", "Frozen mixed vegetables", 500, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Soy sauce", 45, "ml"], ["Cooking sauces & condiments", "Sriracha", 30, "ml"], ["Cooking sauces & condiments", "Honey or brown sugar", 1, "tsp"], ["Herbs, spices & seasoning", "Smoked paprika", 1, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.25, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "turkey_quesadillas", "title": "Turkey, Bean & Cheese Quesadillas", "time": 30, "protein": "40–45g", "long": false, "ingredients": ["500g lean turkey mince", "8 large flour tortilla wraps", "1 × 400g tin kidney beans, drained and rinsed", "1 red pepper, cut into 1cm dice", "1 medium brown onion, cut into 5mm dice", "160g mature cheddar, grated", "150g high-protein Greek-style yoghurt", "15ml (1 tbsp) oil", "Turkey seasoning: 2 tsp smoked paprika, 1 tsp ground cumin, ½ tsp garlic granules, ½ tsp chilli powder, ½ tsp dried oregano, ¾ tsp salt and ¼ tsp black pepper", "Yoghurt dip: 150g yoghurt, ½ tsp smoked paprika, ¼ tsp garlic granules and ¼ tsp salt"], "method": ["Heat 15ml oil in a large frying pan over medium-high heat. Add the onion and pepper and cook for 5 minutes.", "Add the turkey mince, break it into small pieces and cook for 7–8 minutes.", "Add 2 tsp paprika, 1 tsp cumin, ½ tsp garlic granules, ½ tsp chilli powder, ½ tsp oregano, ¾ tsp salt and ¼ tsp pepper. Cook for 1 minute.", "Add the kidney beans and cook for 2 minutes, lightly crushing roughly one-third with the back of a spoon.", "Divide the filling between four tortillas, stopping 2cm from the edge. Sprinkle exactly 40g cheddar over each and top with another tortilla.", "Cook each quesadilla in a clean dry frying pan over medium heat for 2½–3 minutes per side. Rest for 2 minutes before cutting. Mix the yoghurt dip and serve 35–40g per person."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fresh meat", "Lean turkey mince", 500, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 150, "g"], ["Dairy & eggs", "Mature cheddar", 160, "g"], ["Bakery / wraps", "Large flour tortilla wraps", 8, "count"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2.5, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 0.75, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.25, "tsp"]]}, {"id": "turkey_chilli", "title": "Smoky Turkey Chilli & Rice", "time": 40, "protein": "~43g", "long": false, "ingredients": ["500g lean turkey mince", "300g dry long-grain rice", "1 × 400g tin kidney beans, drained", "1 × 400g tin chopped tomatoes", "1 red pepper, cut into 1cm dice", "1 medium brown onion, cut into 5mm dice", "2 garlic cloves, finely grated", "15ml (1 tbsp) oil", "15g (1 tbsp) tomato purée", "2 tsp smoked paprika", "1½ tsp ground cumin", "1 tsp dried oregano", "½ tsp chilli powder", "¾ tsp salt", "½ tsp black pepper"], "method": ["Cook 300g rice with 600ml water using the covered absorption method: 12 minutes on the lowest heat, then 8 minutes resting off the heat.", "Heat 15ml oil in a large pan over medium heat. Cook the onion and pepper for 5 minutes. Add the garlic and cook for 30 seconds.", "Increase to medium-high. Add the turkey and cook for 7–8 minutes, breaking it into small pieces.", "Add the tomato purée, paprika, cumin, oregano, chilli powder, salt and pepper and cook for 1 minute.", "Add the chopped tomatoes, drained kidney beans and 150ml water. Simmer uncovered for 15 minutes, stirring occasionally.", "Divide the rice and chilli between four portions."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Lean turkey mince", 500, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Tinned foods", "Chopped tomatoes", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Tomato purée", 15, "g"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "cajun_chicken_pasta", "title": "Creamy Cajun Chicken Pasta", "time": 40, "protein": "~48g", "long": false, "ingredients": ["650g chicken breast, cut into 2cm cubes", "350g penne or fusilli", "1 red pepper, cut into 1cm strips", "1 medium brown onion, sliced into 5mm strips", "2 garlic cloves, finely grated", "200g high-protein Greek-style yoghurt", "30g mature cheddar, finely grated", "15ml (1 tbsp) oil", "2 tsp smoked paprika, 1 tsp garlic granules, 1 tsp dried oregano, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper", "100ml reserved pasta water"], "method": ["Cook 350g pasta in well-salted boiling water until al dente. Reserve 100ml pasta water before draining.", "Toss the chicken with 2 tsp paprika, 1 tsp garlic granules, 1 tsp oregano, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper.", "Heat 15ml oil in a large frying pan over medium-high heat. Cook the chicken for 8–10 minutes until browned and cooked through. Remove.", "Reduce to medium heat. Cook the onion and pepper for 5–6 minutes. Add the garlic and cook for 30 seconds.", "Return the chicken and add the drained pasta. Turn the heat to low.", "Mix 200g yoghurt with 60ml hot pasta water. Take the pan off direct heat and stir it in, then add 30g cheddar. Add another 20–40ml pasta water if needed. Do not boil after the yoghurt is added."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 200, "g"], ["Dairy & eggs", "Mature cheddar", 30, "g"], ["Pasta, rice & dry goods", "Penne or fusilli", 350, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "beef_burrito_bowls", "title": "Lean Beef Burrito Bowls", "time": 35, "protein": "42–46g", "long": false, "ingredients": ["500g 5%-fat beef mince", "300g dry long-grain rice", "1 × 400g tin kidney beans, drained and rinsed", "1 red pepper, cut into 1cm dice", "1 medium brown onion, cut into 5mm dice", "150g high-protein Greek-style yoghurt", "80g mature cheddar, grated", "15ml (1 tbsp) oil", "2 tsp smoked paprika, 1½ tsp ground cumin, ½ tsp chilli powder, ½ tsp dried oregano, ¾ tsp salt and ½ tsp black pepper"], "method": ["Cook 300g rice with 600ml water using the covered absorption method: 12 minutes on the lowest heat, then 8 minutes resting off the heat.", "Heat 15ml oil over medium-high heat. Cook the onion and pepper for 5 minutes.", "Add the beef and cook for 6–8 minutes until browned, breaking it into small pieces.", "Add the paprika, cumin, chilli powder, oregano, salt and pepper and cook for 1 minute.", "Add the drained kidney beans and 60ml water. Cook for 3–4 minutes until the water has mostly evaporated.", "Divide rice and beef mixture between four bowls. Top each with 20g cheddar and roughly 35–40g yoghurt."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fresh meat", "5% lean beef mince", 500, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 150, "g"], ["Dairy & eggs", "Mature cheddar", 80, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "chicken_tikka_bowls", "title": "Chicken Tikka Rice Bowls", "time": 40, "protein": "~46g", "long": false, "ingredients": ["650g chicken breast, cut into 2.5cm cubes", "300g dry long-grain rice", "1 red pepper, cut into 2cm pieces", "1 medium brown onion, cut into 2cm pieces", "200g high-protein Greek-style yoghurt", "2 garlic cloves, finely grated", "15ml (1 tbsp) oil", "Marinade: 120g yoghurt, 2 tsp smoked paprika, 1½ tsp ground cumin, 1 tsp garlic granules, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper", "Drizzle: remaining 80g yoghurt loosened with 2 tsp cold water and ¼ tsp salt"], "method": ["Mix 120g yoghurt with 2 tsp paprika, 1½ tsp cumin, 1 tsp garlic granules, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper. Coat the chicken and leave for 10 minutes.", "Cook 300g rice with 600ml water using the covered absorption method.", "Heat 15ml oil in a large frying pan over medium-high heat. Add the marinated chicken in a single layer and cook for 8–10 minutes, turning regularly.", "Add the pepper and onion and cook for another 5–6 minutes until softened but not collapsed.", "Mix the remaining 80g yoghurt with 2 tsp cold water and ¼ tsp salt.", "Divide rice, chicken and vegetables into four portions and drizzle the yoghurt over the top."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 200, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "pork_noodles", "title": "Garlic-Soy Pork Noodles", "time": 30, "protein": "40–45g", "long": false, "ingredients": ["600g lean pork loin steaks, trimmed and cut into strips roughly 1cm wide × 5cm long", "300g dried medium egg noodles", "500g frozen stir-fry or mixed vegetables", "3 garlic cloves, finely grated", "15ml (1 tbsp) vegetable oil", "Sauce: 45ml soy sauce, 15ml sriracha, 15ml water, 2 tsp honey or brown sugar and ½ tsp black pepper"], "method": ["Mix 45ml soy sauce, 15ml sriracha, 15ml water, 2 tsp honey or brown sugar and ½ tsp black pepper.", "Cook the noodles according to the packet until just tender, usually 4–5 minutes, then drain thoroughly.", "Heat 7.5ml oil in a large pan or wok over high heat. Cook the pork strips for 5–7 minutes in one or two batches so they sear rather than steam. Remove.", "Add the remaining 7.5ml oil and frozen vegetables. Stir-fry for 5–6 minutes until hot and excess moisture has evaporated. Add the garlic and cook for 30 seconds.", "Return the pork, add the noodles and pour over the sauce. Toss over high heat for 1–2 minutes until evenly coated."], "shop": [["Fruit & veg", "Garlic", 3, "clove"], ["Fresh meat", "Lean pork loin steaks", 600, "g"], ["Pasta, rice & dry goods", "Medium egg noodles", 300, "g"], ["Frozen", "Frozen stir-fry or mixed vegetables", 500, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Soy sauce", 45, "ml"], ["Cooking sauces & condiments", "Sriracha", 15, "ml"], ["Cooking sauces & condiments", "Honey or brown sugar", 2, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "honey_garlic_chicken", "title": "Honey-Garlic Chicken & Vegetable Rice", "time": 35, "protein": "45–50g", "long": false, "ingredients": ["650g chicken breast, cut into 2.5cm cubes", "300g dry long-grain rice", "400g frozen mixed vegetables", "3 garlic cloves, finely grated", "15ml (1 tbsp) oil", "Sauce: 45ml soy sauce, 30g honey, 15ml water, 1 tsp smoked paprika, ½ tsp black pepper and ½ tsp garlic granules"], "method": ["Cook 300g rice with 600ml water using the covered absorption method.", "Mix the soy sauce, honey, water, paprika, black pepper and garlic granules until smooth.", "Heat 15ml oil in a large frying pan over medium-high heat. Cook the chicken for 8–10 minutes until browned and cooked through.", "Add the frozen vegetables and cook for 5 minutes until hot and excess moisture has mostly evaporated. Add the grated garlic and cook for 30 seconds.", "Pour in the sauce and cook for 2 minutes, tossing continuously, until glossy and lightly thickened.", "Divide the rice and chicken mixture into four portions."], "shop": [["Fruit & veg", "Garlic", 3, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Frozen", "Frozen mixed vegetables", 400, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Soy sauce", 45, "ml"], ["Cooking sauces & condiments", "Honey", 30, "g"], ["Herbs, spices & seasoning", "Smoked paprika", 1, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 0.5, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "turkey_burgers", "title": "Smoky Turkey Burgers & Air-Fryer Wedges", "time": 50, "protein": "~42g", "long": false, "ingredients": ["500g lean turkey mince", "800g potatoes, cut lengthways into wedges roughly 2cm thick at the widest point", "4 burger buns", "1 medium brown onion, half very finely diced and half thinly sliced", "1 large egg", "80g mature cheddar, sliced or grated", "120g high-protein Greek-style yoghurt", "15ml (1 tbsp) oil", "Burgers: 1½ tsp smoked paprika, 1 tsp garlic granules, ½ tsp dried oregano, ¾ tsp salt and ½ tsp black pepper", "Wedges: 1 tsp smoked paprika, ½ tsp garlic granules, ½ tsp salt and ¼ tsp black pepper", "Sauce: 120g yoghurt, ½ tsp smoked paprika and ¼ tsp salt"], "method": ["Heat the air fryer to 200°C. Toss the potato wedges with 15ml oil, 1 tsp paprika, ½ tsp garlic granules, ½ tsp salt and ¼ tsp black pepper. Air-fry for 24–30 minutes, shaking thoroughly every 8–10 minutes.", "Mix the turkey, finely diced half-onion, egg, 1½ tsp paprika, 1 tsp garlic granules, ½ tsp oregano, ¾ tsp salt and ½ tsp pepper. Divide into four equal patties about 2cm thick.", "Heat a non-stick frying pan over medium heat. Cook the burgers for 5–6 minutes on the first side and 4–5 minutes on the second, until fully cooked.", "Add 20g cheese to each burger for the final 1–2 minutes and cover the pan briefly to melt it.", "Toast the buns for 1–2 minutes. Mix the yoghurt sauce. Assemble each burger with sliced onion and sauce and serve with one-quarter of the wedges."], "shop": [["Fruit & veg", "Potatoes", 800, "g"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fresh meat", "Lean turkey mince", 500, "g"], ["Dairy & eggs", "Large eggs", 1, "count"], ["Dairy & eggs", "Mature cheddar", 80, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 120, "g"], ["Bakery / wraps", "Burger buns", 4, "count"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 3, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1.5, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.75, "tsp"]]}, {"id": "chicken_shawarma", "title": "Chicken Shawarma Potato Traybake", "time": 60, "protein": "~45g", "long": true, "ingredients": ["700g chicken breast, cut into 3cm chunks", "900g potatoes, cut into 2cm cubes", "1 red pepper, cut into 2cm pieces", "1 medium brown onion, cut into 2cm wedges", "2 garlic cloves, finely grated", "200g high-protein Greek-style yoghurt", "30ml (2 tbsp) oil", "Chicken: 2 tsp smoked paprika, 1½ tsp ground cumin, 1 tsp garlic granules, ½ tsp chilli powder, 1 tsp salt and ½ tsp black pepper", "Potatoes: 1 tsp smoked paprika, ½ tsp salt and ¼ tsp black pepper", "Yoghurt sauce: 200g yoghurt, 1 grated garlic clove, ¼ tsp salt and 1 tsp lemon juice"], "method": ["Heat the oven to 220°C conventional / 200°C fan / Gas 7.", "Toss the potatoes with 15ml oil, 1 tsp paprika, ½ tsp salt and ¼ tsp pepper. Roast for 20 minutes.", "Toss the chicken with 15ml oil, 2 tsp paprika, 1½ tsp cumin, 1 tsp garlic granules, ½ tsp chilli powder, 1 tsp salt and ½ tsp black pepper.", "Turn the potatoes and add the chicken, pepper and onion in a single layer. Roast for another 25–30 minutes, turning the chicken once after about 15 minutes.", "Mix the yoghurt, 1 garlic clove, ¼ tsp salt and 1 tsp lemon juice. Serve alongside the traybake."], "shop": [["Fruit & veg", "Potatoes", 900, "g"], ["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Chicken breast", 700, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 200, "g"], ["Cooking sauces & condiments", "Cooking oil", 30, "ml"], ["Cooking sauces & condiments", "Lemon juice", 5, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 3, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.75, "tsp"]]}, {"id": "meatball_rigatoni", "title": "Beef Meatball Rigatoni Bake", "time": 60, "protein": "~43g", "long": true, "ingredients": ["500g 5%-fat beef mince", "400g dry rigatoni", "1 large egg", "1 medium brown onion, cut into 5mm dice", "2 garlic cloves, finely grated", "2 × 400g tins chopped tomatoes", "120g mature cheddar, grated", "15ml (1 tbsp) oil", "Meatballs: 1 tsp dried oregano, ½ tsp garlic granules, ½ tsp salt and ¼ tsp black pepper", "Sauce: 1 tsp dried oregano, 1 tsp dried basil, ½ tsp smoked paprika, ½ tsp salt and ¼ tsp black pepper"], "method": ["Heat the oven to 200°C conventional / 180°C fan / Gas 6.", "Mix the beef, egg, 1 tsp oregano, ½ tsp garlic granules, ½ tsp salt and ¼ tsp pepper. Divide into 16 meatballs of roughly 32g each.", "Heat 7.5ml oil in a large frying pan over medium-high heat. Brown the meatballs for 6–8 minutes, turning so several sides colour. Remove.", "Add the remaining 7.5ml oil and onion. Cook for 5 minutes. Add garlic for 30 seconds, then add chopped tomatoes, 1 tsp oregano, basil, paprika, ½ tsp salt and ¼ tsp pepper. Simmer for 10 minutes.", "Cook the rigatoni in salted water for 2 minutes less than the packet's al dente time. Drain.", "Combine the pasta, sauce and meatballs in a baking dish. Scatter 120g cheddar evenly over the surface.", "Bake for 15 minutes until bubbling and the cheese is melted with browned spots. Rest for 5 minutes before serving."], "shop": [["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "5% lean beef mince", 500, "g"], ["Dairy & eggs", "Large eggs", 1, "count"], ["Dairy & eggs", "Mature cheddar", 120, "g"], ["Pasta, rice & dry goods", "Rigatoni", 400, "g"], ["Tinned foods", "Chopped tomatoes", 2, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Dried oregano", 2, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 0.5, "tsp"], ["Herbs, spices & seasoning", "Dried basil", 1, "tsp"], ["Herbs, spices & seasoning", "Smoked paprika", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "enchilada_bake", "title": "Chicken & Bean Enchilada Bake", "time": 60, "protein": "~46g", "long": true, "ingredients": ["650g chicken breast, cut into 2cm cubes", "8 large flour tortilla wraps", "1 × 400g tin kidney beans, drained", "1 × 400g tin chopped tomatoes", "1 red pepper, cut into 1cm dice", "1 medium brown onion, cut into 5mm dice", "2 garlic cloves, finely grated", "160g mature cheddar, grated", "15ml (1 tbsp) oil", "15g (1 tbsp) tomato purée", "2 tsp smoked paprika", "1½ tsp ground cumin", "½ tsp chilli powder", "1 tsp dried oregano", "1 tsp salt", "½ tsp black pepper"], "method": ["Heat the oven to 200°C conventional / 180°C fan / Gas 6.", "Heat 15ml oil in a large frying pan over medium-high heat. Cook the onion and pepper for 5 minutes. Add the chicken and cook for 7–8 minutes.", "Add the garlic, tomato purée, paprika, cumin, chilli powder, oregano, salt and black pepper and cook for 1 minute.", "Add the drained kidney beans, chopped tomatoes and 80ml water. Simmer for 8 minutes until thick enough that it will not soak the wraps.", "Divide the filling between 8 wraps, roll tightly and arrange seam-side down in a baking dish.", "Spoon any remaining sauce over the top and scatter over 160g cheddar.", "Bake for 15–18 minutes until bubbling and browned at the edges. Rest for 5 minutes before serving two enchiladas per person."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "Mature cheddar", 160, "g"], ["Bakery / wraps", "Large flour tortilla wraps", 8, "count"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Tinned foods", "Chopped tomatoes", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Tomato purée", 15, "g"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}];
+var STARTER=["piri_chicken_bowls", "turkey_kofta", "beef_spaghetti", "sticky_fried_rice", "turkey_quesadillas"];
+var DAYS=["Monday", "Tuesday \u00b7 Day off", "Wednesday", "Thursday", "Friday"];
+var AISLES=["Fruit & veg", "Fresh meat", "Dairy & eggs", "Bakery / wraps", "Pasta, rice & dry goods", "Tinned foods", "Cooking sauces & condiments", "Herbs, spices & seasoning", "Frozen"];
+var STATE_KEY="mealPlannerState_v5";
+var state={plan:STARTER.slice(),prefs:{},history:[],shoppingChecks:{}};
+var hideChecked=false;
+
+function recipeById(id){return RECIPES.find(function(r){return r.id===id;});}
+function safeText(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function loadState(){
+ try{
+  var raw=localStorage.getItem(STATE_KEY);
+  if(!raw) return;
+  var parsed=JSON.parse(raw);
+  if(parsed && Array.isArray(parsed.plan) && parsed.plan.length===5 && parsed.plan.every(function(id){return !!recipeById(id);})){
+   state.plan=parsed.plan.slice();
+   state.prefs=parsed.prefs||{};
+   state.history=Array.isArray(parsed.history)?parsed.history:[];
+   state.shoppingChecks=parsed.shoppingChecks||{};
+  }
+ }catch(e){console.warn(e);}
+}
+function saveState(){try{localStorage.setItem(STATE_KEY,JSON.stringify(state));}catch(e){console.warn(e);}}
+function pref(id){if(!state.prefs[id]) state.prefs[id]={liked:false,favourite:false,disliked:false}; return state.prefs[id];}
+function showToast(msg){
+ var el=document.getElementById("toast"); el.textContent=msg; el.classList.add("show");
+ clearTimeout(showToast.t); showToast.t=setTimeout(function(){el.classList.remove("show");},1500);
+}
+function formatNumber(n){
+ if(Math.abs(n-Math.round(n))<0.00001) return String(Math.round(n));
+ var map={"0.25":"¼","0.5":"½","0.75":"¾","1.25":"1¼","1.5":"1½","1.75":"1¾","2.5":"2½","3.5":"3½","4.5":"4½"};
+ var k=String(Math.round(n*100)/100); return map[k]||k;
+}
+function requiredText(qty,unit,item){
+ if(unit==="g"){
+  if(qty>=1000) return formatNumber(qty)+"g ("+(Math.round(qty/10)/100)+"kg)";
+  return formatNumber(qty)+"g";
+ }
+ if(unit==="ml") return formatNumber(qty)+"ml";
+ if(unit==="count") return formatNumber(qty);
+ if(unit==="clove"){
+  var bulbs=Math.max(1,Math.ceil(qty/10));
+  return formatNumber(qty)+" cloves · buy about "+bulbs+" bulb"+(bulbs===1?"":"s");
+ }
+ if(unit==="tin") return formatNumber(qty)+" × 400g tin"+(qty===1?"":"s");
+ if(unit==="tsp") return formatNumber(qty)+" tsp";
+ return formatNumber(qty)+" "+unit;
+}
+function aggregateShopping(plan){
+ var map={};
+ plan.forEach(function(id){
+  var r=recipeById(id);
+  r.shop.forEach(function(s){
+   var key=s[0]+"|||"+s[1]+"|||"+s[3];
+   if(!map[key]) map[key]={aisle:s[0],item:s[1],qty:0,unit:s[3]};
+   map[key].qty+=Number(s[2]);
+  });
+ });
+ var rows=Object.keys(map).map(function(k){return map[k];});
+ rows.sort(function(a,b){
+  var ai=AISLES.indexOf(a.aisle),bi=AISLES.indexOf(b.aisle);
+  if(ai!==bi) return ai-bi;
+  return a.item.localeCompare(b.item);
+ });
+ return rows;
+}
+function currentPlanSet(){var o={};state.plan.forEach(function(id){o[id]=true;});return o;}
+function recentUseCount(id){
+ var count=0;
+ state.history.slice(-2).forEach(function(plan){if(plan.indexOf(id)!==-1) count++;});
+ return count;
+}
+function weightFor(id){
+ var p=pref(id),w=1;
+ if(p.favourite) w*=5;
+ if(p.liked) w*=2.5;
+ if(p.disliked) w*=0.15;
+ var recent=recentUseCount(id);
+ if(recent===1) w*=0.55;
+ if(recent>=2) w*=0.25;
+ return Math.max(0.01,w);
+}
+function weightedPick(candidates){
+ if(!candidates.length) return null;
+ var total=0;
+ candidates.forEach(function(r){total+=weightFor(r.id);});
+ var x=Math.random()*total;
+ for(var i=0;i<candidates.length;i++){x-=weightFor(candidates[i].id);if(x<=0)return candidates[i];}
+ return candidates[candidates.length-1];
+}
+function pickUnique(candidates,count){
+ var pool=candidates.slice(),out=[];
+ while(out.length<count && pool.length){
+  var r=weightedPick(pool); if(!r) break;
+  out.push(r); pool=pool.filter(function(x){return x.id!==r.id;});
+ }
+ return out;
+}
+function generateNewWeek(){
+ var current=currentPlanSet();
+ var shortPool=RECIPES.filter(function(r){return !r.long && !current[r.id];});
+ var longPool=RECIPES.filter(function(r){return r.long && !current[r.id];});
+ if(shortPool.length<4) shortPool=RECIPES.filter(function(r){return !r.long;});
+ if(longPool.length<1) longPool=RECIPES.filter(function(r){return r.long;});
+ var shorts=pickUnique(shortPool,4);
+ var tuesday=weightedPick(longPool);
+ if(shorts.length<4 || !tuesday){showToast("Not enough recipes in the library.");return;}
+ state.history.push(state.plan.slice());
+ if(state.history.length>8) state.history=state.history.slice(-8);
+ state.plan=[shorts[0].id,tuesday.id,shorts[1].id,shorts[2].id,shorts[3].id];
+ state.shoppingChecks={};
+ saveState(); renderAll(); showToast("New week generated");
+}
+function restoreStarter(){
+ state.history.push(state.plan.slice());
+ if(state.history.length>8) state.history=state.history.slice(-8);
+ state.plan=STARTER.slice(); state.shoppingChecks={}; saveState(); renderAll(); showToast("Starter week restored");
+}
+function swapMeal(index){
+ var current=currentPlanSet();
+ var wantsLong=(index===1);
+ var pool=RECIPES.filter(function(r){return r.long===wantsLong && !current[r.id];});
+ if(!pool.length) pool=RECIPES.filter(function(r){return r.long===wantsLong && r.id!==state.plan[index];});
+ var replacement=weightedPick(pool); if(!replacement) return;
+ state.plan[index]=replacement.id; saveState(); renderAll(); showToast(DAYS[index]+" swapped");
+}
+function toggleLike(id){
+ var p=pref(id); p.liked=!p.liked; if(p.liked) p.disliked=false;
+ saveState(); renderMeals(); renderFavourites(); showToast(p.liked?"Meal liked":"Like removed");
+}
+function toggleFavourite(id){
+ var p=pref(id); p.favourite=!p.favourite;
+ saveState(); renderMeals(); renderFavourites(); showToast(p.favourite?"Added to favourites":"Removed from favourites");
+}
+function renderMeals(){
+ var host=document.getElementById("mealHost");
+ host.innerHTML=state.plan.map(function(id,index){
+  var r=recipeById(id),p=pref(id);
+  var ingredients=r.ingredients.map(function(x){return "<li>"+safeText(x)+"</li>";}).join("");
+  var steps=r.method.map(function(x){return "<li>"+safeText(x)+"</li>";}).join("");
+  return '<article class="meal-card" data-day-index="'+index+'" data-recipe-id="'+safeText(id)+'">'+
+   '<div class="day">'+safeText(DAYS[index])+'</div>'+
+   '<h2>'+safeText(r.title)+'</h2>'+
+   '<div class="meta"><span>'+r.time+' min</span><span>4 portions</span><span>'+safeText(r.protein)+' protein</span></div>'+
+   '<div class="meal-actions">'+
+    '<button class="action-btn '+(p.liked?"on":"")+'" data-action="like" data-recipe="'+safeText(id)+'">'+(p.liked?"♥ Liked":"♡ Like")+'</button>'+
+    '<button class="action-btn '+(p.favourite?"fav-on":"")+'" data-action="favourite" data-recipe="'+safeText(id)+'">'+(p.favourite?"★ Favourite":"☆ Favourite")+'</button>'+
+    '<button class="action-btn swap" data-action="swap" data-index="'+index+'">↻ Swap</button>'+
+   '</div>'+
+   '<details><summary>Ingredients</summary><ul>'+ingredients+'</ul></details>'+
+   '<details><summary>Method</summary><ol>'+steps+'</ol></details>'+
+  '</article>';
+ }).join("");
+}
+function renderShopping(){
+ var host=document.getElementById("shoppingHost"),rows=aggregateShopping(state.plan),out="",last="";
+ rows.forEach(function(r){
+  if(r.aisle!==last){last=r.aisle;out+='<div class="aisle-title">'+safeText(last)+'</div>';}
+  var key=r.item+"|"+r.unit;
+  var checked=!!state.shoppingChecks[key];
+  out+='<label class="shop-row '+(checked?"checked":"")+(hideChecked&&checked?" hidden":"")+'" data-shop-key="'+safeText(key)+'">'+
+   '<input type="checkbox" class="shop-check" data-key="'+safeText(key)+'" '+(checked?"checked":"")+'>'+
+   '<span class="shop-copy"><b>'+safeText(r.item)+'</b><small>'+safeText(requiredText(r.qty,r.unit,r.item))+'</small></span></label>';
+ });
+ host.innerHTML=out; updateProgress();
+}
+function updateProgress(){
+ var boxes=Array.prototype.slice.call(document.querySelectorAll("#shoppingHost .shop-check"));
+ var done=boxes.filter(function(b){return b.checked;}).length;
+ var total=boxes.length, pct=total?Math.round(done/total*100):0;
+ document.getElementById("progressText").textContent=done+" of "+total+" picked up";
+ document.getElementById("progressPct").textContent=pct+"%";
+ document.getElementById("progressBar").style.width=pct+"%";
+}
+function renderFavourites(){
+ var ids=Object.keys(state.prefs).filter(function(id){return state.prefs[id].favourite && recipeById(id);});
+ var host=document.getElementById("favouritesHost");
+ if(!ids.length){host.innerHTML='<div class="empty">Tap ☆ Favourite on any meal and it will be saved here. Favourites get a strong weighting in future generated weeks.</div>';return;}
+ host.innerHTML='<div class="fav-grid">'+ids.map(function(id){
+  var r=recipeById(id),p=pref(id);
+  return '<article class="meal-card"><div class="day">Saved favourite</div><h2>'+safeText(r.title)+'</h2>'+
+   '<div class="meta"><span>'+r.time+' min</span><span>'+safeText(r.protein)+' protein</span></div>'+
+   '<div class="meal-actions"><button class="action-btn '+(p.liked?"on":"")+'" data-action="like" data-recipe="'+safeText(id)+'">'+(p.liked?"♥ Liked":"♡ Like")+'</button>'+
+   '<button class="action-btn fav-on" data-action="favourite" data-recipe="'+safeText(id)+'">★ Favourite</button></div></article>';
+ }).join("")+'</div>';
+}
+function renderAll(){renderMeals();renderShopping();renderFavourites();}
+function switchTab(name){
+ document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
+ document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active");});
+ document.getElementById("panel-"+name).classList.add("active");
+ document.querySelector('.tab-btn[data-tab="'+name+'"]').classList.add("active");
+ if(name==="shopping") updateProgress();
+}
+document.addEventListener("click",function(e){
+ var tab=e.target.closest(".tab-btn"); if(tab){switchTab(tab.getAttribute("data-tab"));return;}
+ var action=e.target.closest("[data-action]"); if(action){
+  var a=action.getAttribute("data-action");
+  if(a==="like") toggleLike(action.getAttribute("data-recipe"));
+  if(a==="favourite") toggleFavourite(action.getAttribute("data-recipe"));
+  if(a==="swap") swapMeal(Number(action.getAttribute("data-index")));
+ }
+});
+document.getElementById("generateWeek").addEventListener("click",generateNewWeek);
+document.getElementById("restoreStarter").addEventListener("click",restoreStarter);
+document.getElementById("hideChecked").addEventListener("click",function(){
+ hideChecked=!hideChecked; this.textContent=hideChecked?"Show checked":"Hide checked"; renderShopping();
+});
+document.getElementById("resetChecks").addEventListener("click",function(){
+ state.shoppingChecks={};saveState();renderShopping();showToast("Shopping ticks reset");
+});
+document.getElementById("shoppingHost").addEventListener("change",function(e){
+ if(!e.target.classList.contains("shop-check")) return;
+ var key=e.target.getAttribute("data-key");
+ state.shoppingChecks[key]=e.target.checked;
+ saveState();
+ var row=e.target.closest(".shop-row"); row.classList.toggle("checked",e.target.checked);
+ if(hideChecked && e.target.checked) row.classList.add("hidden");
+ updateProgress();
+});
+window.addEventListener("error",function(ev){
+ var b=document.getElementById("errorBanner");b.textContent="App error: "+ev.message;b.classList.add("show");
+});
+loadState();renderAll();
+if("serviceWorker" in navigator){
+ window.addEventListener("load",function(){
+  navigator.serviceWorker.register("./sw.js").catch(function(error){console.warn("Service worker registration failed:",error);});
+ });
+}
+</script>
+</body>
+</html>
