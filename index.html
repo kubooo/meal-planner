@@ -43,11 +43,12 @@ ul,ol{padding-left:21px} li{margin:6px 0;line-height:1.42}
 .shop-row{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:14px;padding:13px 14px;margin-bottom:7px}
 .shop-check{appearance:none;-webkit-appearance:none;width:24px;height:24px;min-width:24px;border:2px solid #c5c9cf;border-radius:7px;background:#fff;margin:0;position:relative}
 .shop-check:checked{background:var(--green);border-color:var(--green)} .shop-check:checked:after{content:"✓";position:absolute;left:4px;top:-2px;color:#fff;font-weight:900;font-size:18px}
-.shop-row.checked{opacity:.48} .shop-row.checked .shop-copy{text-decoration:line-through} .shop-copy{font-size:16px;line-height:1.3} .shop-copy b{display:block} .shop-copy small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.shop-row.checked{opacity:.48} .shop-row.checked .shop-copy{text-decoration:line-through} .shop-copy{font-size:16px;line-height:1.3;flex:1;min-width:0;cursor:pointer} .shop-copy b{display:block} .shop-copy small{display:block;font-size:12px;color:var(--muted);margin-top:2px}.shop-note{font-style:italic}.shop-menu{border:0;background:#f3f4f6;color:#374151;border-radius:10px;min-width:36px;height:34px;padding:0 10px;font-size:18px;font-weight:900;line-height:1}.add-item-btn{width:100%;margin-top:12px;background:var(--blue);color:#fff;border:0;border-radius:12px;padding:12px 14px;font-size:15px;font-weight:850}.shopping-tools{background:#fff;border:0;border-radius:14px;padding:13px 14px;margin:12px 0}.shopping-tools summary{font-size:13px}.shopping-tools .row{margin-top:10px}.manual-count{font-size:12px;color:var(--muted);margin:8px 2px 0}
+.dialog-shell{border:0;border-radius:20px;padding:0;width:min(520px,calc(100vw - 28px));max-height:88vh;box-shadow:0 24px 80px rgba(0,0,0,.28);color:var(--ink)}.dialog-shell::backdrop{background:rgba(17,24,39,.52);backdrop-filter:blur(2px)}.dialog-card{padding:18px;overflow:auto;max-height:88vh}.dialog-card h2{margin:0 0 4px}.dialog-copy{font-size:13px;line-height:1.45;color:var(--muted);margin:0 0 14px}.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}.field label{font-size:12px;font-weight:850;color:#374151}.field input,.field select,.field textarea{width:100%;border:1px solid #cfd4dc;border-radius:11px;padding:11px 12px;background:#fff;color:var(--ink);font:inherit;font-size:16px}.field textarea{resize:vertical;min-height:76px}.optional-fields{border:1px solid var(--line);border-radius:13px;padding:0 12px;margin-bottom:14px}.optional-fields summary{padding:12px 0;font-size:13px}.optional-fields[open] summary{margin-bottom:2px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dialog-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}.dialog-actions .primary{background:var(--blue);color:#fff}.dialog-actions .secondary{background:#e5e7eb;color:#111827}.dialog-actions .danger{padding:10px 12px}.form-error{display:none;color:#b91c1c;background:#fef2f2;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:750;margin-bottom:10px}.form-error.show{display:block}.delete-confirm{display:none;background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:11px;margin-top:12px}.delete-confirm.show{display:block}.delete-confirm p{font-size:13px;margin:0 0 9px}.data-text{min-height:210px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px!important}.duplicate-amounts{font-weight:800;color:#374151}
 .hidden{display:none!important}
 .empty{background:#fff;border-radius:18px;padding:22px;text-align:center;color:var(--muted)} .disliked-grid .meal-card,.liked-grid .meal-card{padding-bottom:13px}
 .rating-switch{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#e8e9ec;padding:4px;border-radius:12px;margin-top:13px}.rating-switch button{border:0;background:transparent;border-radius:9px;padding:9px;font-size:13px;font-weight:800;color:#5d626b}.rating-switch button.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}.rating-view{display:none}.rating-view.active{display:block}
-.history-week h2{margin-bottom:12px}.history-meal{border-top:1px solid var(--line);padding:0;margin:0}.history-week h2+.history-meal,.history-week>.meta+.history-meal{border-top:0}.history-meal summary{display:grid;grid-template-columns:96px minmax(0,1fr) auto auto auto;gap:9px;align-items:center;padding:11px 0}.history-meal[open] summary{color:var(--ink)}.history-day{font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}.history-title{font-size:14px;line-height:1.3}.history-time{font-size:12px;color:var(--muted);white-space:nowrap}.history-rating{font-size:11px;font-weight:800;padding:4px 7px;border-radius:999px;background:#f3f4f6;color:var(--muted);white-space:nowrap}.history-rating.liked{background:#eff6ff;color:#1d4ed8}.history-rating.disliked{background:#fef2f2;color:#b91c1c}.history-chevron{font-size:20px;color:var(--muted);transition:transform .2s}.history-meal[open] .history-chevron{transform:rotate(90deg)}.history-expanded{padding:2px 0 12px 105px}.history-expanded h3{font-size:14px;margin:14px 0 7px}.history-expanded ul,.history-expanded ol{font-size:13px;margin:0}.history-note{font-size:12px;color:#b91c1c;margin:10px 0 0}@media(max-width:440px){.tabs button{font-size:11px;line-height:1.1;padding:8px 3px}.nutrition-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.history-meal summary{grid-template-columns:72px minmax(0,1fr) auto auto}.history-time{display:none}.history-expanded{padding-left:0}.portion-field,.portion-field .portion-select{width:100%}.day-portions{align-items:stretch}.day-portions label{width:100%}.day-portions .portion-select{min-width:0;width:100%}}
+.history-week h2{margin-bottom:12px}.history-meal{border-top:1px solid var(--line);padding:0;margin:0}.history-week h2+.history-meal,.history-week>.meta+.history-meal{border-top:0}.history-meal summary{display:grid;grid-template-columns:96px minmax(0,1fr) auto auto auto;gap:9px;align-items:center;padding:11px 0}.history-meal[open] summary{color:var(--ink)}.history-day{font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}.history-title{font-size:14px;line-height:1.3}.history-time{font-size:12px;color:var(--muted);white-space:nowrap}.history-rating{font-size:11px;font-weight:800;padding:4px 7px;border-radius:999px;background:#f3f4f6;color:var(--muted);white-space:nowrap}.history-rating.liked{background:#eff6ff;color:#1d4ed8}.history-rating.disliked{background:#fef2f2;color:#b91c1c}.history-chevron{font-size:20px;color:var(--muted);transition:transform .2s}.history-meal[open] .history-chevron{transform:rotate(90deg)}.history-expanded{padding:2px 0 12px 105px}.history-expanded h3{font-size:14px;margin:14px 0 7px}.history-expanded ul,.history-expanded ol{font-size:13px;margin:0}.history-note{font-size:12px;color:#b91c1c;margin:10px 0 0}@media(max-width:440px){.tabs button{font-size:11px;line-height:1.1;padding:8px 3px}.nutrition-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.history-meal summary{grid-template-columns:72px minmax(0,1fr) auto auto}.history-time{display:none}.history-expanded{padding-left:0}.portion-field,.portion-field .portion-select{width:100%}.day-portions{align-items:stretch}.day-portions label{width:100%}.day-portions .portion-select{min-width:0;width:100%}.dialog-shell{width:100%;max-width:none;margin:auto 0 0;border-radius:20px 20px 0 0;max-height:92vh}.dialog-card{padding:16px;max-height:92vh}.form-grid{grid-template-columns:1fr}.dialog-actions{position:sticky;bottom:-16px;background:#fff;padding:10px 0 2px}.dialog-actions button{flex:1}.shop-menu{min-width:42px;height:38px}}
 .toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(30px);opacity:0;background:#111827;color:#fff;border-radius:999px;padding:10px 14px;font-size:13px;font-weight:750;z-index:50;transition:.2s;pointer-events:none;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)} .error{display:none;background:#fee2e2;color:#991b1b;padding:10px 14px;font-size:13px;font-weight:700} .error.show{display:block}
 </style>
@@ -155,11 +156,21 @@ ul,ol{padding-left:21px} li{margin:6px 0;line-height:1.42}
    <span id="progressPct" class="badge">0%</span>
   </div>
   <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+  <button id="addManualItem" class="add-item-btn">＋ Add Item</button>
   <div class="row" style="margin-top:12px">
    <button id="hideChecked" class="secondary">Hide checked</button>
    <button id="resetChecks" class="danger">Reset ticks</button>
+   <button id="removeCheckedManual" class="secondary">Remove checked manual items</button>
   </div>
+  <div id="manualItemCount" class="manual-count"></div>
  </div>
+ <details class="shopping-tools">
+  <summary>Shopping data</summary>
+  <div class="row">
+   <button id="exportData" class="action-btn">Export Data</button>
+   <button id="importData" class="action-btn">Import Data</button>
+  </div>
+ </details>
  <div id="shoppingHost"><div class="aisle-title">Fruit &amp; veg</div>
 
 <label class="shop-row" data-shop-key="Brown onions|count">
@@ -353,6 +364,63 @@ ul,ol{padding-left:21px} li{margin:6px 0;line-height:1.42}
  <div id="historyHost"><div class="empty">Generate a new week to start building your weekly history.</div></div>
 </section>
 </main>
+
+<dialog id="manualItemDialog" class="dialog-shell">
+ <form id="manualItemForm" class="dialog-card" novalidate>
+  <h2 id="manualDialogTitle">Add shopping item</h2>
+  <p class="dialog-copy">Only the item name is required. Add it now, or include more detail.</p>
+  <div id="manualFormError" class="form-error" role="alert"></div>
+  <input id="manualItemId" type="hidden">
+  <div class="field">
+   <label for="manualName">Item name</label>
+   <input id="manualName" name="name" required maxlength="80" autocomplete="off" enterkeyhint="done" placeholder="e.g. Milk">
+  </div>
+  <details id="manualOptionalFields" class="optional-fields">
+   <summary>Quantity, category and note (optional)</summary>
+   <div class="form-grid">
+    <div class="field"><label for="manualQuantity">Quantity</label><input id="manualQuantity" name="quantity" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 2"></div>
+    <div class="field"><label for="manualUnit">Unit</label><input id="manualUnit" name="unit" maxlength="30" list="manualUnitSuggestions" placeholder="e.g. litres"></div>
+   </div>
+   <div class="field"><label for="manualCategory">Shopping category / aisle</label><select id="manualCategory" name="category"></select></div>
+   <div class="field"><label for="manualNote">Note</label><textarea id="manualNote" name="note" maxlength="180" placeholder="e.g. Get the 24-pack if on offer"></textarea></div>
+  </details>
+  <datalist id="manualUnitSuggestions"><option value="count"><option value="g"><option value="kg"><option value="ml"><option value="litres"><option value="pack"><option value="bottle"><option value="jar"><option value="tin"></datalist>
+  <div id="manualDeleteConfirm" class="delete-confirm"><p>Delete this manual item?</p><div class="row"><button id="cancelManualDelete" type="button" class="secondary">Keep item</button><button id="confirmManualDelete" type="button" class="danger">Delete</button></div></div>
+  <div class="dialog-actions">
+   <button id="deleteManualItem" type="button" class="danger hidden">Delete item</button>
+   <button id="cancelManualItem" type="button" class="secondary">Cancel</button>
+   <button id="saveManualItem" type="submit" class="primary">Add</button>
+  </div>
+ </form>
+</dialog>
+
+<dialog id="duplicateDialog" class="dialog-shell">
+ <div class="dialog-card">
+  <h2>Combine matching items?</h2>
+  <p id="duplicateMessage" class="dialog-copy"></p>
+  <p id="duplicateAmounts" class="duplicate-amounts"></p>
+  <div class="dialog-actions"><button id="keepDuplicateSeparate" type="button" class="secondary">Keep separate</button><button id="combineDuplicate" type="button" class="primary">Combine</button></div>
+ </div>
+</dialog>
+
+<dialog id="removeManualDialog" class="dialog-shell">
+ <div class="dialog-card">
+  <h2>Remove checked manual items?</h2>
+  <p id="removeManualMessage" class="dialog-copy"></p>
+  <div class="dialog-actions"><button id="cancelRemoveManual" type="button" class="secondary">Cancel</button><button id="confirmRemoveManual" type="button" class="danger">Remove items</button></div>
+ </div>
+</dialog>
+
+<dialog id="dataDialog" class="dialog-shell">
+ <div class="dialog-card">
+  <h2 id="dataDialogTitle">Export Data</h2>
+  <p id="dataDialogCopy" class="dialog-copy"></p>
+  <div id="dataDialogError" class="form-error" role="alert"></div>
+  <div class="field"><label for="dataText">Meal planner data</label><textarea id="dataText" class="data-text" spellcheck="false"></textarea></div>
+  <div class="dialog-actions"><button id="closeDataDialog" type="button" class="secondary">Close</button><button id="downloadData" type="button" class="action-btn">Download JSON</button><button id="applyImport" type="button" class="primary hidden">Import backup</button></div>
+ </div>
+</dialog>
+
 <div id="toast" class="toast"></div>
 
 <script>
@@ -360,16 +428,49 @@ ul,ol{padding-left:21px} li{margin:6px 0;line-height:1.42}
 var RECIPES=[{"id": "piri_chicken_bowls", "title": "Piri-Piri Chicken Rice & Bean Bowls", "time": 35, "protein": "45–50g", "nutrition": {"calories":620,"carbohydrates":76,"protein":49,"fat":13,"fibre":9,"salt":1.8}, "baseServings": 4, "long": false, "ingredients": ["650g skinless chicken breast, cut into 2.5cm cubes", "300g dry long-grain rice", "1 × 400g tin kidney beans, drained and rinsed", "1 red pepper (~150g), cut into 1.5cm pieces", "1 medium brown onion (~150g), cut into 1cm dice", "2 medium carrots (~160g total), peeled and sliced into 3–4mm half-moons", "2 garlic cloves, finely grated", "150g high-protein Greek-style yoghurt", "15ml (1 tbsp) vegetable or olive oil", "Chicken seasoning: 2 tsp smoked paprika, 1 tsp garlic granules, 1 tsp dried oregano, ½ tsp chilli powder, ¾ tsp fine salt, ½ tsp black pepper", "Yoghurt sauce: 150g yoghurt, 1 garlic clove, ½ tsp smoked paprika, ¼ tsp salt, 1 tsp lemon juice and 1–2 tsp cold water"], "method": ["Rinse 300g rice under cold water. Add it to a saucepan with 600ml cold water and ½ tsp salt. Bring to the boil, cover, reduce to the lowest heat and cook for 12 minutes. Turn the heat off and leave covered for 8 minutes.", "Toss the chicken cubes with 15ml oil, 2 tsp smoked paprika, 1 tsp garlic granules, 1 tsp oregano, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper.", "Heat a large frying pan over medium-high heat. Cook the chicken for 8–10 minutes, turning regularly, until browned and cooked through. Remove to a plate.", "Add the onion and carrots to the same pan and cook for 4 minutes. Add the pepper and cook for 3–4 minutes. Add the drained kidney beans and cook for 2 minutes.", "Mix the yoghurt sauce ingredients until smooth. Divide the rice, vegetables, beans and chicken between four bowls and spoon roughly 35–40g sauce over each."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Carrots", 2, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fruit & veg", "Lemon", 0.25, "count"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 150, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Lemon juice", 5, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2.5, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "turkey_kofta", "title": "Turkey Kofta & Crispy Potato Traybake", "time": 55, "protein": "~40g", "nutrition": {"calories":575,"carbohydrates":55,"protein":40,"fat":21,"fibre":8,"salt":2.1}, "baseServings": 4, "long": true, "ingredients": ["500g lean turkey mince", "1kg potatoes, cut into even 2cm cubes", "1 red pepper, cut into 2cm pieces", "1 medium brown onion: half cut into very fine 3–4mm dice and half sliced into 5mm strips", "1 large egg", "2 garlic cloves, finely grated", "200g high-protein Greek-style yoghurt", "30ml (2 tbsp) oil", "Potatoes: 1½ tsp smoked paprika, ½ tsp garlic granules, ½ tsp dried oregano, ¾ tsp salt, ¼ tsp black pepper", "Koftas: 1 tsp smoked paprika, 1 tsp ground cumin, ½ tsp dried oregano, ½ tsp salt, ¼ tsp black pepper", "Garlic yoghurt: 200g yoghurt, 1 garlic clove, ¼ tsp salt, ¼ tsp black pepper and 1 tsp lemon juice"], "method": ["Heat the oven to 220°C conventional / 200°C fan / Gas 7.", "Toss the 2cm potato cubes with 22.5ml (1½ tbsp) oil, 1½ tsp smoked paprika, ½ tsp garlic granules, ½ tsp oregano, ¾ tsp salt and ¼ tsp black pepper. Roast for 20 minutes.", "Mix the turkey mince, finely diced half-onion, 1 grated garlic clove, egg, 1 tsp paprika, 1 tsp cumin, ½ tsp oregano, ½ tsp salt and ¼ tsp black pepper only until combined.", "Divide the mixture into 12 pieces of roughly 45g and shape each into a kofta about 7cm long and 2.5cm thick.", "Turn the potatoes. Add the pepper, sliced onion and remaining 7.5ml oil. Add the koftas with gaps between them and roast for 20–25 minutes, turning the koftas after about 12 minutes.", "Mix the yoghurt, remaining garlic, ¼ tsp salt, ¼ tsp pepper and 1 tsp lemon juice. Serve three koftas per person with one-quarter of the potatoes and vegetables."], "shop": [["Fruit & veg", "Potatoes", 1000, "g"], ["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Lean turkey mince", 500, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 200, "g"], ["Dairy & eggs", "Large eggs", 1, "count"], ["Cooking sauces & condiments", "Cooking oil", 30, "ml"], ["Cooking sauces & condiments", "Lemon juice", 5, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2.5, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 0.5, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1.5, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.75, "tsp"]]}, {"id": "beef_spaghetti", "title": "Lean Beef & Bean Tomato Spaghetti", "time": 45, "protein": "40–45g", "nutrition": {"calories":665,"carbohydrates":87,"protein":44,"fat":15,"fibre":12,"salt":1.9}, "baseServings": 4, "long": false, "ingredients": ["500g 5%-fat beef mince", "350g dry spaghetti", "1 × 400g tin kidney beans, drained", "2 × 400g tins chopped tomatoes", "1 medium brown onion, cut into 5mm dice", "1 medium carrot (~80g), coarsely grated", "2 garlic cloves, finely grated", "250g frozen mixed vegetables", "15ml (1 tbsp) oil", "15g (1 tbsp) tomato purée", "1½ tsp dried oregano", "1 tsp dried basil", "1 tsp smoked paprika", "¾ tsp salt", "½ tsp black pepper", "¼ tsp chilli flakes"], "method": ["Heat 15ml oil in a large pan over medium heat. Add the onion and carrot and cook for 5 minutes. Add the garlic and cook for 30 seconds.", "Increase the heat to medium-high. Add the beef and cook for 6–8 minutes, breaking it into small pieces until properly browned.", "Stir in 15g tomato purée and cook for 1 minute. Add the tomatoes, kidney beans, frozen vegetables, oregano, basil, paprika, salt, black pepper, chilli flakes and 100ml water.", "Bring to a gentle simmer and cook uncovered for 20 minutes, stirring every few minutes. Add another 50ml water only if it becomes too thick.", "Cook 350g spaghetti in well-salted boiling water until al dente according to the packet, usually 9–11 minutes. Reserve 100ml pasta water before draining.", "Combine the pasta and sauce. Add 30–60ml pasta water as required so the sauce evenly coats the spaghetti."], "shop": [["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Carrots", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "5% lean beef mince", 500, "g"], ["Pasta, rice & dry goods", "Spaghetti", 350, "g"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Tinned foods", "Chopped tomatoes", 2, "tin"], ["Frozen", "Frozen mixed vegetables", 250, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Tomato purée", 15, "g"], ["Herbs, spices & seasoning", "Dried oregano", 1.5, "tsp"], ["Herbs, spices & seasoning", "Dried basil", 1, "tsp"], ["Herbs, spices & seasoning", "Smoked paprika", 1, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"], ["Herbs, spices & seasoning", "Chilli flakes", 0.25, "tsp"]]}, {"id": "sticky_fried_rice", "title": "Sticky Chicken Egg-Fried Rice", "time": 35, "protein": "45–50g", "nutrition": {"calories":625,"carbohydrates":72,"protein":49,"fat":14,"fibre":7,"salt":2.8}, "baseServings": 4, "long": false, "ingredients": ["650g chicken breast, cut into 2cm cubes", "300g dry long-grain rice", "500g frozen mixed vegetables", "3 large eggs", "3 garlic cloves, finely grated", "15ml (1 tbsp) vegetable oil", "Chicken: 1 tsp smoked paprika, ½ tsp garlic granules, ½ tsp black pepper and ¼ tsp salt", "Sauce: 45ml soy sauce, 30ml sriracha, 15ml water, 1 tsp honey or brown sugar and ½ tsp garlic granules"], "method": ["Cook 300g rice with 600ml water using the covered absorption method: 12 minutes on the lowest heat, then 8 minutes resting off the heat. Spread the cooked rice over a large plate or tray for 10 minutes so excess steam escapes.", "Season the chicken with 1 tsp smoked paprika, ½ tsp garlic granules, ½ tsp black pepper and ¼ tsp salt.", "Mix 45ml soy sauce, 30ml sriracha, 15ml water, 1 tsp honey or brown sugar and ½ tsp garlic granules.", "Heat a large frying pan or wok over medium-high heat. Add 7.5ml oil and cook the chicken for 8–10 minutes. Remove.", "Add the remaining 7.5ml oil and frozen vegetables. Fry for 5–6 minutes until hot and most surface moisture has evaporated. Add the garlic for 30 seconds.", "Push the vegetables aside. Scramble the eggs for 60–90 seconds. Add the rice, increase to high heat and stir-fry for 3–4 minutes.", "Return the chicken, pour in the sauce and toss for 1–2 minutes until everything is evenly coated."], "shop": [["Fruit & veg", "Garlic", 3, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "Large eggs", 3, "count"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Frozen", "Frozen mixed vegetables", 500, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Soy sauce", 45, "ml"], ["Cooking sauces & condiments", "Sriracha", 30, "ml"], ["Cooking sauces & condiments", "Honey or brown sugar", 1, "tsp"], ["Herbs, spices & seasoning", "Smoked paprika", 1, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.25, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "turkey_quesadillas", "title": "Turkey, Bean & Cheese Quesadillas", "time": 30, "protein": "40–45g", "nutrition": {"calories":830,"carbohydrates":86,"protein":45,"fat":31,"fibre":11,"salt":3.1}, "baseServings": 4, "long": false, "ingredients": ["500g lean turkey mince", "8 large flour tortilla wraps", "1 × 400g tin kidney beans, drained and rinsed", "1 red pepper, cut into 1cm dice", "1 medium brown onion, cut into 5mm dice", "160g mature cheddar, grated", "150g high-protein Greek-style yoghurt", "15ml (1 tbsp) oil", "Turkey seasoning: 2 tsp smoked paprika, 1 tsp ground cumin, ½ tsp garlic granules, ½ tsp chilli powder, ½ tsp dried oregano, ¾ tsp salt and ¼ tsp black pepper", "Yoghurt dip: 150g yoghurt, ½ tsp smoked paprika, ¼ tsp garlic granules and ¼ tsp salt"], "method": ["Heat 15ml oil in a large frying pan over medium-high heat. Add the onion and pepper and cook for 5 minutes.", "Add the turkey mince, break it into small pieces and cook for 7–8 minutes.", "Add 2 tsp paprika, 1 tsp cumin, ½ tsp garlic granules, ½ tsp chilli powder, ½ tsp oregano, ¾ tsp salt and ¼ tsp pepper. Cook for 1 minute.", "Add the kidney beans and cook for 2 minutes, lightly crushing roughly one-third with the back of a spoon.", "Divide the filling between four tortillas, stopping 2cm from the edge. Sprinkle exactly 40g cheddar over each and top with another tortilla.", "Cook each quesadilla in a clean dry frying pan over medium heat for 2½–3 minutes per side. Rest for 2 minutes before cutting. Mix the yoghurt dip and serve 35–40g per person."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fresh meat", "Lean turkey mince", 500, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 150, "g"], ["Dairy & eggs", "Mature cheddar", 160, "g"], ["Bakery / wraps", "Large flour tortilla wraps", 8, "count"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2.5, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 0.75, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.25, "tsp"]]}, {"id": "turkey_chilli", "title": "Smoky Turkey Chilli & Rice", "time": 40, "protein": "~43g", "nutrition": {"calories":610,"carbohydrates":79,"protein":43,"fat":14,"fibre":10,"salt":1.8}, "baseServings": 4, "long": false, "ingredients": ["500g lean turkey mince", "300g dry long-grain rice", "1 × 400g tin kidney beans, drained", "1 × 400g tin chopped tomatoes", "1 red pepper, cut into 1cm dice", "1 medium brown onion, cut into 5mm dice", "2 garlic cloves, finely grated", "15ml (1 tbsp) oil", "15g (1 tbsp) tomato purée", "2 tsp smoked paprika", "1½ tsp ground cumin", "1 tsp dried oregano", "½ tsp chilli powder", "¾ tsp salt", "½ tsp black pepper"], "method": ["Cook 300g rice with 600ml water using the covered absorption method: 12 minutes on the lowest heat, then 8 minutes resting off the heat.", "Heat 15ml oil in a large pan over medium heat. Cook the onion and pepper for 5 minutes. Add the garlic and cook for 30 seconds.", "Increase to medium-high. Add the turkey and cook for 7–8 minutes, breaking it into small pieces.", "Add the tomato purée, paprika, cumin, oregano, chilli powder, salt and pepper and cook for 1 minute.", "Add the chopped tomatoes, drained kidney beans and 150ml water. Simmer uncovered for 15 minutes, stirring occasionally.", "Divide the rice and chilli between four portions."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Lean turkey mince", 500, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Tinned foods", "Chopped tomatoes", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Tomato purée", 15, "g"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "cajun_chicken_pasta", "title": "Creamy Cajun Chicken Pasta", "time": 40, "protein": "~48g", "nutrition": {"calories":650,"carbohydrates":76,"protein":48,"fat":17,"fibre":6,"salt":1.8}, "baseServings": 4, "long": false, "ingredients": ["650g chicken breast, cut into 2cm cubes", "350g penne or fusilli", "1 red pepper, cut into 1cm strips", "1 medium brown onion, sliced into 5mm strips", "2 garlic cloves, finely grated", "200g high-protein Greek-style yoghurt", "30g mature cheddar, finely grated", "15ml (1 tbsp) oil", "2 tsp smoked paprika, 1 tsp garlic granules, 1 tsp dried oregano, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper", "100ml reserved pasta water"], "method": ["Cook 350g pasta in well-salted boiling water until al dente. Reserve 100ml pasta water before draining.", "Toss the chicken with 2 tsp paprika, 1 tsp garlic granules, 1 tsp oregano, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper.", "Heat 15ml oil in a large frying pan over medium-high heat. Cook the chicken for 8–10 minutes until browned and cooked through. Remove.", "Reduce to medium heat. Cook the onion and pepper for 5–6 minutes. Add the garlic and cook for 30 seconds.", "Return the chicken and add the drained pasta. Turn the heat to low.", "Mix 200g yoghurt with 60ml hot pasta water. Take the pan off direct heat and stir it in, then add 30g cheddar. Add another 20–40ml pasta water if needed. Do not boil after the yoghurt is added."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 200, "g"], ["Dairy & eggs", "Mature cheddar", 30, "g"], ["Pasta, rice & dry goods", "Penne or fusilli", 350, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "beef_burrito_bowls", "title": "Lean Beef Burrito Bowls", "time": 35, "protein": "42–46g", "nutrition": {"calories":670,"carbohydrates":78,"protein":44,"fat":20,"fibre":9,"salt":2}, "baseServings": 4, "long": false, "ingredients": ["500g 5%-fat beef mince", "300g dry long-grain rice", "1 × 400g tin kidney beans, drained and rinsed", "1 red pepper, cut into 1cm dice", "1 medium brown onion, cut into 5mm dice", "150g high-protein Greek-style yoghurt", "80g mature cheddar, grated", "15ml (1 tbsp) oil", "2 tsp smoked paprika, 1½ tsp ground cumin, ½ tsp chilli powder, ½ tsp dried oregano, ¾ tsp salt and ½ tsp black pepper"], "method": ["Cook 300g rice with 600ml water using the covered absorption method: 12 minutes on the lowest heat, then 8 minutes resting off the heat.", "Heat 15ml oil over medium-high heat. Cook the onion and pepper for 5 minutes.", "Add the beef and cook for 6–8 minutes until browned, breaking it into small pieces.", "Add the paprika, cumin, chilli powder, oregano, salt and pepper and cook for 1 minute.", "Add the drained kidney beans and 60ml water. Cook for 3–4 minutes until the water has mostly evaporated.", "Divide rice and beef mixture between four bowls. Top each with 20g cheddar and roughly 35–40g yoghurt."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fresh meat", "5% lean beef mince", 500, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 150, "g"], ["Dairy & eggs", "Mature cheddar", 80, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 0.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "chicken_tikka_bowls", "title": "Chicken Tikka Rice Bowls", "time": 40, "protein": "~46g", "nutrition": {"calories":570,"carbohydrates":70,"protein":46,"fat":13,"fibre":5,"salt":1.7}, "baseServings": 4, "long": false, "ingredients": ["650g chicken breast, cut into 2.5cm cubes", "300g dry long-grain rice", "1 red pepper, cut into 2cm pieces", "1 medium brown onion, cut into 2cm pieces", "200g high-protein Greek-style yoghurt", "2 garlic cloves, finely grated", "15ml (1 tbsp) oil", "Marinade: 120g yoghurt, 2 tsp smoked paprika, 1½ tsp ground cumin, 1 tsp garlic granules, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper", "Drizzle: remaining 80g yoghurt loosened with 2 tsp cold water and ¼ tsp salt"], "method": ["Mix 120g yoghurt with 2 tsp paprika, 1½ tsp cumin, 1 tsp garlic granules, ½ tsp chilli powder, ¾ tsp salt and ½ tsp black pepper. Coat the chicken and leave for 10 minutes.", "Cook 300g rice with 600ml water using the covered absorption method.", "Heat 15ml oil in a large frying pan over medium-high heat. Add the marinated chicken in a single layer and cook for 8–10 minutes, turning regularly.", "Add the pepper and onion and cook for another 5–6 minutes until softened but not collapsed.", "Mix the remaining 80g yoghurt with 2 tsp cold water and ¼ tsp salt.", "Divide rice, chicken and vegetables into four portions and drizzle the yoghurt over the top."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 200, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "pork_noodles", "title": "Garlic-Soy Pork Noodles", "time": 30, "protein": "40–45g", "nutrition": {"calories":620,"carbohydrates":68,"protein":43,"fat":17,"fibre":7,"salt":2.6}, "baseServings": 4, "long": false, "ingredients": ["600g lean pork loin steaks, trimmed and cut into strips roughly 1cm wide × 5cm long", "300g dried medium egg noodles", "500g frozen stir-fry or mixed vegetables", "3 garlic cloves, finely grated", "15ml (1 tbsp) vegetable oil", "Sauce: 45ml soy sauce, 15ml sriracha, 15ml water, 2 tsp honey or brown sugar and ½ tsp black pepper"], "method": ["Mix 45ml soy sauce, 15ml sriracha, 15ml water, 2 tsp honey or brown sugar and ½ tsp black pepper.", "Cook the noodles according to the packet until just tender, usually 4–5 minutes, then drain thoroughly.", "Heat 7.5ml oil in a large pan or wok over high heat. Cook the pork strips for 5–7 minutes in one or two batches so they sear rather than steam. Remove.", "Add the remaining 7.5ml oil and frozen vegetables. Stir-fry for 5–6 minutes until hot and excess moisture has evaporated. Add the garlic and cook for 30 seconds.", "Return the pork, add the noodles and pour over the sauce. Toss over high heat for 1–2 minutes until evenly coated."], "shop": [["Fruit & veg", "Garlic", 3, "clove"], ["Fresh meat", "Lean pork loin steaks", 600, "g"], ["Pasta, rice & dry goods", "Medium egg noodles", 300, "g"], ["Frozen", "Frozen stir-fry or mixed vegetables", 500, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Soy sauce", 45, "ml"], ["Cooking sauces & condiments", "Sriracha", 15, "ml"], ["Cooking sauces & condiments", "Honey or brown sugar", 2, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "honey_garlic_chicken", "title": "Honey-Garlic Chicken & Vegetable Rice", "time": 35, "protein": "45–50g", "nutrition": {"calories":590,"carbohydrates":75,"protein":48,"fat":12,"fibre":6,"salt":2.4}, "baseServings": 4, "long": false, "ingredients": ["650g chicken breast, cut into 2.5cm cubes", "300g dry long-grain rice", "400g frozen mixed vegetables", "3 garlic cloves, finely grated", "15ml (1 tbsp) oil", "Sauce: 45ml soy sauce, 30g honey, 15ml water, 1 tsp smoked paprika, ½ tsp black pepper and ½ tsp garlic granules"], "method": ["Cook 300g rice with 600ml water using the covered absorption method.", "Mix the soy sauce, honey, water, paprika, black pepper and garlic granules until smooth.", "Heat 15ml oil in a large frying pan over medium-high heat. Cook the chicken for 8–10 minutes until browned and cooked through.", "Add the frozen vegetables and cook for 5 minutes until hot and excess moisture has mostly evaporated. Add the grated garlic and cook for 30 seconds.", "Pour in the sauce and cook for 2 minutes, tossing continuously, until glossy and lightly thickened.", "Divide the rice and chicken mixture into four portions."], "shop": [["Fruit & veg", "Garlic", 3, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Pasta, rice & dry goods", "Long-grain rice", 300, "g"], ["Frozen", "Frozen mixed vegetables", 400, "g"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Soy sauce", 45, "ml"], ["Cooking sauces & condiments", "Honey", 30, "g"], ["Herbs, spices & seasoning", "Smoked paprika", 1, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 0.5, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "turkey_burgers", "title": "Smoky Turkey Burgers & Air-Fryer Wedges", "time": 50, "protein": "~42g", "nutrition": {"calories":675,"carbohydrates":70,"protein":42,"fat":24,"fibre":8,"salt":2.4}, "baseServings": 4, "long": false, "ingredients": ["500g lean turkey mince", "800g potatoes, cut lengthways into wedges roughly 2cm thick at the widest point", "4 burger buns", "1 medium brown onion, half very finely diced and half thinly sliced", "1 large egg", "80g mature cheddar, sliced or grated", "120g high-protein Greek-style yoghurt", "15ml (1 tbsp) oil", "Burgers: 1½ tsp smoked paprika, 1 tsp garlic granules, ½ tsp dried oregano, ¾ tsp salt and ½ tsp black pepper", "Wedges: 1 tsp smoked paprika, ½ tsp garlic granules, ½ tsp salt and ¼ tsp black pepper", "Sauce: 120g yoghurt, ½ tsp smoked paprika and ¼ tsp salt"], "method": ["Heat the air fryer to 200°C. Toss the potato wedges with 15ml oil, 1 tsp paprika, ½ tsp garlic granules, ½ tsp salt and ¼ tsp black pepper. Air-fry for 24–30 minutes, shaking thoroughly every 8–10 minutes.", "Mix the turkey, finely diced half-onion, egg, 1½ tsp paprika, 1 tsp garlic granules, ½ tsp oregano, ¾ tsp salt and ½ tsp pepper. Divide into four equal patties about 2cm thick.", "Heat a non-stick frying pan over medium heat. Cook the burgers for 5–6 minutes on the first side and 4–5 minutes on the second, until fully cooked.", "Add 20g cheese to each burger for the final 1–2 minutes and cover the pan briefly to melt it.", "Toast the buns for 1–2 minutes. Mix the yoghurt sauce. Assemble each burger with sliced onion and sauce and serve with one-quarter of the wedges."], "shop": [["Fruit & veg", "Potatoes", 800, "g"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fresh meat", "Lean turkey mince", 500, "g"], ["Dairy & eggs", "Large eggs", 1, "count"], ["Dairy & eggs", "Mature cheddar", 80, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 120, "g"], ["Bakery / wraps", "Burger buns", 4, "count"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 3, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1.5, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.75, "tsp"]]}, {"id": "chicken_shawarma", "title": "Chicken Shawarma Potato Traybake", "time": 60, "protein": "~45g", "nutrition": {"calories":550,"carbohydrates":49,"protein":45,"fat":18,"fibre":7,"salt":2.7}, "baseServings": 4, "long": true, "ingredients": ["700g chicken breast, cut into 3cm chunks", "900g potatoes, cut into 2cm cubes", "1 red pepper, cut into 2cm pieces", "1 medium brown onion, cut into 2cm wedges", "2 garlic cloves, finely grated", "200g high-protein Greek-style yoghurt", "30ml (2 tbsp) oil", "Chicken: 2 tsp smoked paprika, 1½ tsp ground cumin, 1 tsp garlic granules, ½ tsp chilli powder, 1 tsp salt and ½ tsp black pepper", "Potatoes: 1 tsp smoked paprika, ½ tsp salt and ¼ tsp black pepper", "Yoghurt sauce: 200g yoghurt, 1 grated garlic clove, ¼ tsp salt and 1 tsp lemon juice"], "method": ["Heat the oven to 220°C conventional / 200°C fan / Gas 7.", "Toss the potatoes with 15ml oil, 1 tsp paprika, ½ tsp salt and ¼ tsp pepper. Roast for 20 minutes.", "Toss the chicken with 15ml oil, 2 tsp paprika, 1½ tsp cumin, 1 tsp garlic granules, ½ tsp chilli powder, 1 tsp salt and ½ tsp black pepper.", "Turn the potatoes and add the chicken, pepper and onion in a single layer. Roast for another 25–30 minutes, turning the chicken once after about 15 minutes.", "Mix the yoghurt, 1 garlic clove, ¼ tsp salt and 1 tsp lemon juice. Serve alongside the traybake."], "shop": [["Fruit & veg", "Potatoes", 900, "g"], ["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Chicken breast", 700, "g"], ["Dairy & eggs", "High-protein Greek-style yoghurt", 200, "g"], ["Cooking sauces & condiments", "Cooking oil", 30, "ml"], ["Cooking sauces & condiments", "Lemon juice", 5, "ml"], ["Herbs, spices & seasoning", "Smoked paprika", 3, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 1, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1.75, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.75, "tsp"]]}, {"id": "meatball_rigatoni", "title": "Beef Meatball Rigatoni Bake", "time": 60, "protein": "~43g", "nutrition": {"calories":760,"carbohydrates":88,"protein":43,"fat":24,"fibre":9,"salt":2.3}, "baseServings": 4, "long": true, "ingredients": ["500g 5%-fat beef mince", "400g dry rigatoni", "1 large egg", "1 medium brown onion, cut into 5mm dice", "2 garlic cloves, finely grated", "2 × 400g tins chopped tomatoes", "120g mature cheddar, grated", "15ml (1 tbsp) oil", "Meatballs: 1 tsp dried oregano, ½ tsp garlic granules, ½ tsp salt and ¼ tsp black pepper", "Sauce: 1 tsp dried oregano, 1 tsp dried basil, ½ tsp smoked paprika, ½ tsp salt and ¼ tsp black pepper"], "method": ["Heat the oven to 200°C conventional / 180°C fan / Gas 6.", "Mix the beef, egg, 1 tsp oregano, ½ tsp garlic granules, ½ tsp salt and ¼ tsp pepper. Divide into 16 meatballs of roughly 32g each.", "Heat 7.5ml oil in a large frying pan over medium-high heat. Brown the meatballs for 6–8 minutes, turning so several sides colour. Remove.", "Add the remaining 7.5ml oil and onion. Cook for 5 minutes. Add garlic for 30 seconds, then add chopped tomatoes, 1 tsp oregano, basil, paprika, ½ tsp salt and ¼ tsp pepper. Simmer for 10 minutes.", "Cook the rigatoni in salted water for 2 minutes less than the packet's al dente time. Drain.", "Combine the pasta, sauce and meatballs in a baking dish. Scatter 120g cheddar evenly over the surface.", "Bake for 15 minutes until bubbling and the cheese is melted with browned spots. Rest for 5 minutes before serving."], "shop": [["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "5% lean beef mince", 500, "g"], ["Dairy & eggs", "Large eggs", 1, "count"], ["Dairy & eggs", "Mature cheddar", 120, "g"], ["Pasta, rice & dry goods", "Rigatoni", 400, "g"], ["Tinned foods", "Chopped tomatoes", 2, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Herbs, spices & seasoning", "Dried oregano", 2, "tsp"], ["Herbs, spices & seasoning", "Garlic granules", 0.5, "tsp"], ["Herbs, spices & seasoning", "Dried basil", 1, "tsp"], ["Herbs, spices & seasoning", "Smoked paprika", 0.5, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}, {"id": "enchilada_bake", "title": "Chicken & Bean Enchilada Bake", "time": 60, "protein": "~46g", "nutrition": {"calories":820,"carbohydrates":82,"protein":46,"fat":29,"fibre":11,"salt":3}, "baseServings": 4, "long": true, "ingredients": ["650g chicken breast, cut into 2cm cubes", "8 large flour tortilla wraps", "1 × 400g tin kidney beans, drained", "1 × 400g tin chopped tomatoes", "1 red pepper, cut into 1cm dice", "1 medium brown onion, cut into 5mm dice", "2 garlic cloves, finely grated", "160g mature cheddar, grated", "15ml (1 tbsp) oil", "15g (1 tbsp) tomato purée", "2 tsp smoked paprika", "1½ tsp ground cumin", "½ tsp chilli powder", "1 tsp dried oregano", "1 tsp salt", "½ tsp black pepper"], "method": ["Heat the oven to 200°C conventional / 180°C fan / Gas 6.", "Heat 15ml oil in a large frying pan over medium-high heat. Cook the onion and pepper for 5 minutes. Add the chicken and cook for 7–8 minutes.", "Add the garlic, tomato purée, paprika, cumin, chilli powder, oregano, salt and black pepper and cook for 1 minute.", "Add the drained kidney beans, chopped tomatoes and 80ml water. Simmer for 8 minutes until thick enough that it will not soak the wraps.", "Divide the filling between 8 wraps, roll tightly and arrange seam-side down in a baking dish.", "Spoon any remaining sauce over the top and scatter over 160g cheddar.", "Bake for 15–18 minutes until bubbling and browned at the edges. Rest for 5 minutes before serving two enchiladas per person."], "shop": [["Fruit & veg", "Red peppers", 1, "count"], ["Fruit & veg", "Brown onions", 1, "count"], ["Fruit & veg", "Garlic", 2, "clove"], ["Fresh meat", "Chicken breast", 650, "g"], ["Dairy & eggs", "Mature cheddar", 160, "g"], ["Bakery / wraps", "Large flour tortilla wraps", 8, "count"], ["Tinned foods", "Kidney beans", 1, "tin"], ["Tinned foods", "Chopped tomatoes", 1, "tin"], ["Cooking sauces & condiments", "Cooking oil", 15, "ml"], ["Cooking sauces & condiments", "Tomato purée", 15, "g"], ["Herbs, spices & seasoning", "Smoked paprika", 2, "tsp"], ["Herbs, spices & seasoning", "Ground cumin", 1.5, "tsp"], ["Herbs, spices & seasoning", "Chilli powder", 0.5, "tsp"], ["Herbs, spices & seasoning", "Dried oregano", 1, "tsp"], ["Herbs, spices & seasoning", "Fine salt", 1, "tsp"], ["Herbs, spices & seasoning", "Black pepper", 0.5, "tsp"]]}];
 var STARTER=["piri_chicken_bowls", "turkey_kofta", "beef_spaghetti", "sticky_fried_rice", "turkey_quesadillas"];
 var DAYS=["Monday", "Tuesday \u00b7 Day off", "Wednesday", "Thursday", "Friday"];
-var AISLES=["Fruit & veg", "Fresh meat", "Dairy & eggs", "Bakery / wraps", "Pasta, rice & dry goods", "Tinned foods", "Cooking sauces & condiments", "Herbs, spices & seasoning", "Frozen"];
+var SHOP_CATEGORIES=["Fruit & veg", "Bakery", "Fresh meat & fish", "Dairy & eggs", "Chilled", "Frozen", "Tinned foods", "Pasta, rice & dry goods", "Sauces & condiments", "Herbs & spices", "Snacks", "Drinks", "Breakfast", "Household", "Toiletries", "Other"];
+var CATEGORY_ALIASES={"Fresh meat":"Fresh meat & fish","Bakery / wraps":"Bakery","Cooking sauces & condiments":"Sauces & condiments","Herbs, spices & seasoning":"Herbs & spices"};
+var AISLES=SHOP_CATEGORIES;
 var STATE_KEY="mealPlannerState_v5";
+var SCHEMA_VERSION=6;
 var MIN_SERVINGS=1;
 var MAX_SERVINGS=8;
-var state={plan:STARTER.slice(),prefs:{},history:[],shoppingChecks:{},weeklyServings:4,dayServings:{}};
+var state={schemaVersion:SCHEMA_VERSION,plan:STARTER.slice(),prefs:{},history:[],shoppingChecks:{},weeklyServings:4,dayServings:{},manualItems:[],categoryMemory:{}};
 var hideChecked=false;
 var ratingView="liked";
+var pendingDuplicate=null;
+var pendingRemoveManualIds=[];
+var manualIdSequence=0;
 
 function recipeById(id){return RECIPES.find(function(r){return r.id===id;});}
 function safeText(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function canonicalCategory(value){
+ var category=String(value||"").trim();
+ category=CATEGORY_ALIASES[category]||category;
+ return SHOP_CATEGORIES.indexOf(category)!==-1?category:"Other";
+}
+function normalizeItemName(value){return String(value||"").trim().toLowerCase().replace(/\s+/g," ");}
+function makeManualId(){manualIdSequence+=1;return "manual_"+Date.now().toString(36)+"_"+manualIdSequence.toString(36)+"_"+Math.random().toString(36).slice(2,7);}
+function normalizeOptionalQuantity(value){
+ if(value===""||value===null||typeof value==="undefined") return null;
+ var number=Number(value);
+ return Number.isFinite(number)&&number>=0?number:null;
+}
+function normalizeManualItem(saved,seenIds){
+ if(!saved||!normalizeItemName(saved.name)) return null;
+ var id=typeof saved.id==="string"&&/^manual_[a-z0-9_-]+$/i.test(saved.id)?saved.id:makeManualId();
+ if(seenIds[id]) id=makeManualId();
+ seenIds[id]=true;
+ return {
+  id:id,
+  name:String(saved.name).trim().slice(0,80),
+  quantity:normalizeOptionalQuantity(saved.quantity),
+  unit:String(saved.unit||"").trim().slice(0,30),
+  category:canonicalCategory(saved.category),
+  note:String(saved.note||"").trim().slice(0,180),
+  regular:!!saved.regular
+ };
+}
 function validServings(value,fallback){
  var n=Number(value);
  return Number.isInteger(n)&&n>=MIN_SERVINGS&&n<=MAX_SERVINGS?n:fallback;
@@ -396,26 +497,43 @@ function portionsForDay(index,settings){
  var weekly=validServings(source.weeklyServings,4);
  return Object.prototype.hasOwnProperty.call(source.dayServings||{},index)?validServings(source.dayServings[index],weekly):weekly;
 }
+function normalizeState(saved){
+ if(!saved||!Array.isArray(saved.plan)||saved.plan.length!==DAYS.length||!saved.plan.every(function(id){return !!recipeById(id);})) return null;
+ var prefs={},checks={},memory={},seenIds={};
+ Object.keys(saved.prefs||{}).forEach(function(id){
+  if(!recipeById(id)) return;
+  var rating=saved.prefs[id]||{};
+  prefs[id]={liked:!!rating.liked,disliked:!!rating.disliked};
+ });
+ Object.keys(saved.shoppingChecks||{}).forEach(function(key){checks[key]=!!saved.shoppingChecks[key];});
+ Object.keys(saved.categoryMemory||{}).forEach(function(name){memory[normalizeItemName(name)]=canonicalCategory(saved.categoryMemory[name]);});
+ return {
+  schemaVersion:SCHEMA_VERSION,
+  plan:saved.plan.slice(),
+  prefs:prefs,
+  history:(Array.isArray(saved.history)?saved.history:[]).map(normalizeHistoryEntry).filter(Boolean).slice(-12),
+  shoppingChecks:checks,
+  weeklyServings:validServings(saved.weeklyServings,4),
+  dayServings:normalizeDayServings(saved.dayServings),
+  manualItems:(Array.isArray(saved.manualItems)?saved.manualItems:[]).slice(0,500).map(function(item){return normalizeManualItem(item,seenIds);}).filter(Boolean),
+  categoryMemory:memory
+ };
+}
+function applyStateData(saved){
+ var normalized=normalizeState(saved);
+ if(!normalized) return false;
+ state=normalized;
+ return true;
+}
 function loadState(){
  try{
   var raw=localStorage.getItem(STATE_KEY);
   if(!raw) return;
   var parsed=JSON.parse(raw);
-  if(parsed && Array.isArray(parsed.plan) && parsed.plan.length===5 && parsed.plan.every(function(id){return !!recipeById(id);})){
-   state.plan=parsed.plan.slice();
-   state.prefs={};
-   Object.keys(parsed.prefs||{}).forEach(function(id){
-    var saved=parsed.prefs[id]||{};
-    state.prefs[id]={liked:!!saved.liked,disliked:!!saved.disliked};
-   });
-   state.history=(Array.isArray(parsed.history)?parsed.history:[]).map(normalizeHistoryEntry).filter(Boolean).slice(-12);
-   state.shoppingChecks=parsed.shoppingChecks||{};
-   state.weeklyServings=validServings(parsed.weeklyServings,4);
-   state.dayServings=normalizeDayServings(parsed.dayServings);
-  }
+  applyStateData(parsed);
  }catch(e){console.warn(e);}
 }
-function saveState(){try{localStorage.setItem(STATE_KEY,JSON.stringify(state));}catch(e){console.warn(e);}}
+function saveState(){try{state.schemaVersion=SCHEMA_VERSION;localStorage.setItem(STATE_KEY,JSON.stringify(state));}catch(e){console.warn(e);}}
 function pref(id){if(!state.prefs[id]) state.prefs[id]={liked:false,disliked:false}; return state.prefs[id];}
 function isDisliked(id){return !!(state.prefs[id]&&state.prefs[id].disliked);}
 function showToast(msg){
@@ -428,6 +546,31 @@ function formatNumber(n){
  var glyph=Math.abs(fraction-.25)<.001?"¼":(Math.abs(fraction-.5)<.001?"½":(Math.abs(fraction-.75)<.001?"¾":""));
  if(glyph&&Math.abs(rounded)<10) return (whole?String(whole):"")+glyph;
  return String(rounded);
+}
+function unitInfo(value){
+ var unit=String(value||"").trim().toLowerCase().replace(/\./g,"");
+ var aliases={
+  "":"none","item":"count","items":"count","each":"count","counts":"count","piece":"count","pieces":"count",
+  "gram":"g","grams":"g","kilogram":"kg","kilograms":"kg","kgs":"kg",
+  "millilitre":"ml","millilitres":"ml","milliliter":"ml","milliliters":"ml",
+  "l":"litre","ltr":"litre","ltrs":"litre","litres":"litre","liter":"litre","liters":"litre",
+  "cloves":"clove","tins":"tin","cans":"can","packs":"pack","packets":"packet","bottles":"bottle","jars":"jar",
+  "teaspoon":"tsp","teaspoons":"tsp","tablespoon":"tbsp","tablespoons":"tbsp"
+ };
+ unit=aliases[unit]||unit;
+ var definitions={g:{key:"mass",factor:1},kg:{key:"mass",factor:1000},ml:{key:"volume",factor:1},litre:{key:"volume",factor:1000},count:{key:"count",factor:1},clove:{key:"clove",factor:1},tin:{key:"tin",factor:1},can:{key:"can",factor:1},pack:{key:"pack",factor:1},packet:{key:"packet",factor:1},bottle:{key:"bottle",factor:1},jar:{key:"jar",factor:1},tsp:{key:"tsp",factor:1},tbsp:{key:"tbsp",factor:1},none:{key:"none",factor:1}};
+ return definitions[unit]||{key:"custom:"+unit,factor:1};
+}
+function compatibleUnits(first,second){return unitInfo(first).key===unitInfo(second).key;}
+function convertQuantity(quantity,fromUnit,toUnit){
+ var from=unitInfo(fromUnit),to=unitInfo(toUnit);
+ return from.key===to.key?Number(quantity)*from.factor/to.factor:null;
+}
+function manualQuantityText(item){
+ if(item.quantity===null) return item.unit||"";
+ var unit=item.unit||"",singular=unit.trim().toLowerCase();
+ if(Math.abs(item.quantity-1)>.00001&&["litre","bottle","jar","pack","packet","tin","can","clove","item","piece"].indexOf(singular)!==-1) unit+="s";
+ return formatNumber(item.quantity)+(unit?" "+unit:"");
 }
 function parseIngredientQuantity(value){
  var text=String(value),fractions={"¼":.25,"½":.5,"¾":.75};
@@ -466,7 +609,10 @@ function requiredText(qty,unit,item){
   if(qty>=1000) return formatNumber(qty)+"g ("+(Math.round(qty/10)/100)+"kg)";
   return formatNumber(qty)+"g";
  }
- if(unit==="ml") return formatNumber(qty)+"ml";
+ if(unit==="ml"){
+  if(qty>=1000) return formatNumber(qty)+"ml ("+formatNumber(qty/1000)+" litre"+(Math.abs(qty-1000)<.00001?"":"s")+")";
+  return formatNumber(qty)+"ml";
+ }
  if(unit==="count") return formatNumber(qty);
  if(unit==="clove"){
   var bulbs=Math.max(1,Math.ceil(qty/10));
@@ -497,8 +643,8 @@ function aggregateShopping(plan,settings){
  plan.forEach(function(id,index){
   var r=recipeById(id),factor=portionsForDay(index,settings)/validServings(r.baseServings,4);
   r.shop.forEach(function(s){
-   var key=s[0]+"|||"+s[1]+"|||"+s[3];
-   if(!map[key]) map[key]={aisle:s[0],item:s[1],qty:0,unit:s[3]};
+   var aisle=canonicalCategory(s[0]),key=aisle+"|||"+s[1]+"|||"+s[3];
+   if(!map[key]) map[key]={aisle:aisle,item:s[1],qty:0,unit:s[3]};
    map[key].qty+=Number(s[2])*factor;
   });
  });
@@ -509,6 +655,55 @@ function aggregateShopping(plan,settings){
   return a.item.localeCompare(b.item);
  });
  return rows;
+}
+function manualCheckKey(id){return "manual|"+id;}
+function combinedShoppingRows(){
+ var rows=aggregateShopping(state.plan).map(function(row){
+  return {aisle:row.aisle,item:row.item,qty:row.qty,unit:row.unit,note:"",source:"generated",manualIds:[],checkKeys:[row.item+"|"+row.unit]};
+ });
+ state.manualItems.forEach(function(manual){
+  var matching=manual.quantity===null?null:rows.find(function(row){
+   return row.source!=="manual"&&normalizeItemName(row.item)===normalizeItemName(manual.name)&&compatibleUnits(row.unit,manual.unit);
+  });
+  if(matching){
+   var converted=convertQuantity(manual.quantity,manual.unit,matching.unit);
+   if(converted!==null){
+    matching.qty+=converted;
+    matching.source="combined";
+    matching.manualIds.push(manual.id);
+    matching.checkKeys.push(manualCheckKey(manual.id));
+    if(manual.note) matching.note=matching.note?matching.note+" · "+manual.note:manual.note;
+    return;
+   }
+  }
+  rows.push({aisle:canonicalCategory(manual.category),item:manual.name,qty:manual.quantity,unit:manual.unit,note:manual.note,source:"manual",manualIds:[manual.id],checkKeys:[manualCheckKey(manual.id)]});
+ });
+ rows.sort(function(a,b){
+  var ai=AISLES.indexOf(a.aisle),bi=AISLES.indexOf(b.aisle);
+  if(ai!==bi) return ai-bi;
+  return a.item.localeCompare(b.item);
+ });
+ return rows;
+}
+function findManualDuplicate(item,excludeId){
+ if(item.quantity===null) return null;
+ return state.manualItems.find(function(existing){
+  return existing.id!==excludeId&&existing.quantity!==null&&normalizeItemName(existing.name)===normalizeItemName(item.name)&&compatibleUnits(existing.unit,item.unit);
+ })||null;
+}
+function combineManualItem(existing,incoming){
+ var converted=convertQuantity(incoming.quantity,incoming.unit,existing.unit);
+ if(converted===null) return false;
+ existing.quantity+=converted;
+ if(!existing.note&&incoming.note) existing.note=incoming.note;
+ else if(incoming.note&&normalizeItemName(existing.note)!==normalizeItemName(incoming.note)) existing.note=(existing.note+" · "+incoming.note).slice(0,180);
+ if(existing.category==="Other"&&incoming.category!=="Other") existing.category=incoming.category;
+ existing.regular=existing.regular||incoming.regular;
+ state.shoppingChecks[manualCheckKey(existing.id)]=false;
+ return true;
+}
+function clearGeneratedShoppingChecks(){
+ Object.keys(state.shoppingChecks).forEach(function(key){if(key.indexOf("manual|")!==0) delete state.shoppingChecks[key];});
 }
 function currentPlanSet(){var o={};state.plan.forEach(function(id){o[id]=true;});return o;}
 function addToHistory(plan){
@@ -558,7 +753,7 @@ function generateNewWeek(){
  if(shorts.length<4 || !tuesday){showToast("Undo a dislike to keep enough recipes in rotation.");return;}
  addToHistory(state.plan);
  state.plan=[shorts[0].id,tuesday.id,shorts[1].id,shorts[2].id,shorts[3].id];
- state.shoppingChecks={};
+ clearGeneratedShoppingChecks();
  saveState(); renderAll(); showToast("New week generated");
 }
 function restoreLastWeek(){
@@ -570,7 +765,7 @@ function restoreLastWeek(){
  state.plan=previous.plan.slice();
  state.weeklyServings=previous.weeklyServings;
  state.dayServings=Object.assign({},previous.dayServings);
- state.shoppingChecks={};saveState();renderAll();showToast("Last week restored");
+ clearGeneratedShoppingChecks();saveState();renderAll();showToast("Last week restored");
 }
 function swapMeal(index){
  var current=currentPlanSet();
@@ -578,7 +773,7 @@ function swapMeal(index){
  var pool=RECIPES.filter(function(r){return r.long===wantsLong && !current[r.id] && !isDisliked(r.id);});
  if(!pool.length) pool=RECIPES.filter(function(r){return r.long===wantsLong && r.id!==state.plan[index] && !isDisliked(r.id);});
  var replacement=weightedPick(pool); if(!replacement){showToast("Undo a dislike to make another meal available.");return;}
- state.plan[index]=replacement.id; saveState(); renderAll(); showToast(DAYS[index]+" swapped");
+ state.plan[index]=replacement.id; clearGeneratedShoppingChecks();saveState(); renderAll(); showToast(DAYS[index]+" swapped");
 }
 function toggleLike(id){
  var p=pref(id); p.liked=!p.liked; if(p.liked) p.disliked=false;
@@ -591,7 +786,7 @@ function dislikeMeal(index){
  if(!replacement){showToast("Undo another dislike before removing this meal.");return;}
  var p=pref(id);p.disliked=true;p.liked=false;
  state.plan[index]=replacement.id;
- state.shoppingChecks={};
+ clearGeneratedShoppingChecks();
  saveState();renderAll();showToast("Meal disliked and removed from rotation");
 }
 function dislikeRecipe(id){
@@ -626,22 +821,105 @@ function renderMeals(){
   '</article>';
  }).join("");
 }
+function dialogOpen(dialog){if(typeof dialog.showModal==="function")dialog.showModal();else dialog.setAttribute("open","");}
+function dialogClose(dialog){if(typeof dialog.close==="function")dialog.close();else dialog.removeAttribute("open");}
+function categoryOptions(selected){return SHOP_CATEGORIES.map(function(category){return '<option value="'+safeText(category)+'" '+(category===selected?"selected":"")+'>'+safeText(category)+'</option>';}).join("");}
+function setManualFormError(message){var error=document.getElementById("manualFormError");error.textContent=message||"";error.classList.toggle("show",!!message);}
+function openManualItemDialog(id){
+ var item=id?state.manualItems.find(function(entry){return entry.id===id;}):null;
+ document.getElementById("manualItemForm").reset();
+ document.getElementById("manualItemId").value=item?item.id:"";
+ document.getElementById("manualName").value=item?item.name:"";
+ document.getElementById("manualQuantity").value=item&&item.quantity!==null?item.quantity:"";
+ document.getElementById("manualUnit").value=item?item.unit:"";
+ document.getElementById("manualCategory").innerHTML=categoryOptions(item?item.category:"Other");
+ document.getElementById("manualNote").value=item?item.note:"";
+ document.getElementById("manualDialogTitle").textContent=item?"Edit shopping item":"Add shopping item";
+ document.getElementById("saveManualItem").textContent=item?"Save":"Add";
+ document.getElementById("deleteManualItem").classList.toggle("hidden",!item);
+ document.getElementById("manualDeleteConfirm").classList.remove("show");
+ document.getElementById("manualOptionalFields").open=!!(item&&(item.quantity!==null||item.unit||item.category!=="Other"||item.note));
+ setManualFormError("");
+ dialogOpen(document.getElementById("manualItemDialog"));
+ setTimeout(function(){document.getElementById("manualName").focus();},0);
+}
+function manualCandidateFromForm(){
+ var name=document.getElementById("manualName").value.trim();
+ var rawQuantity=document.getElementById("manualQuantity").value.trim();
+ if(!name){setManualFormError("Enter an item name.");return null;}
+ if(rawQuantity!==""&&(!Number.isFinite(Number(rawQuantity))||Number(rawQuantity)<0)){setManualFormError("Quantity cannot be negative.");return null;}
+ var existingId=document.getElementById("manualItemId").value;
+ var existing=existingId?state.manualItems.find(function(item){return item.id===existingId;}):null;
+ return {
+  id:existingId||makeManualId(),name:name.slice(0,80),quantity:rawQuantity===""?null:Number(rawQuantity),
+  unit:document.getElementById("manualUnit").value.trim().slice(0,30),category:canonicalCategory(document.getElementById("manualCategory").value),
+  note:document.getElementById("manualNote").value.trim().slice(0,180),regular:existing?!!existing.regular:false
+ };
+}
+function finalizeManualItem(item){
+ var index=state.manualItems.findIndex(function(existing){return existing.id===item.id;});
+ if(index===-1) state.manualItems.push(item); else state.manualItems[index]=item;
+ state.categoryMemory[normalizeItemName(item.name)]=item.category;
+ state.shoppingChecks[manualCheckKey(item.id)]=false;
+ saveState();renderShopping();showToast(index===-1?"Shopping item added":"Shopping item updated");
+}
+function submitManualItem(){
+ var item=manualCandidateFromForm();if(!item)return;
+ var duplicate=findManualDuplicate(item,item.id);
+ dialogClose(document.getElementById("manualItemDialog"));
+ if(!duplicate){finalizeManualItem(item);return;}
+ pendingDuplicate={item:item,duplicateId:duplicate.id};
+ document.getElementById("duplicateMessage").textContent=item.name+" is already on the manual list with a compatible unit.";
+ document.getElementById("duplicateAmounts").textContent=manualQuantityText(duplicate)+" + "+manualQuantityText(item);
+ dialogOpen(document.getElementById("duplicateDialog"));
+}
+function removeManualItems(ids){
+ var idMap={};ids.forEach(function(id){idMap[id]=true;delete state.shoppingChecks[manualCheckKey(id)];});
+ state.manualItems=state.manualItems.filter(function(item){return !idMap[item.id];});
+ saveState();renderShopping();showToast(ids.length+" manual item"+(ids.length===1?"":"s")+" removed");
+}
+function buildExportPayload(){return {app:"meal-planner",schemaVersion:SCHEMA_VERSION,exportedAt:new Date().toISOString(),state:JSON.parse(JSON.stringify(state))};}
+function openDataDialog(mode){
+ var exporting=mode==="export",dialog=document.getElementById("dataDialog"),text=document.getElementById("dataText");
+ document.getElementById("dataDialogTitle").textContent=exporting?"Export Data":"Import Data";
+ document.getElementById("dataDialogCopy").textContent=exporting?"This backup includes meals, ratings, history, portions, shopping ticks, and every manual shopping item.":"Paste a Meal Planner JSON backup below. Import replaces the current saved state after validation.";
+ text.value=exporting?JSON.stringify(buildExportPayload(),null,2):"";text.readOnly=exporting;
+ document.getElementById("downloadData").classList.toggle("hidden",!exporting);
+ document.getElementById("applyImport").classList.toggle("hidden",exporting);
+ var error=document.getElementById("dataDialogError");error.textContent="";error.classList.remove("show");
+ dialogOpen(dialog);if(!exporting)setTimeout(function(){text.focus();},0);
+}
+function applyImportedData(){
+ var error=document.getElementById("dataDialogError");
+ try{
+  var parsed=JSON.parse(document.getElementById("dataText").value),saved=parsed&&parsed.state?parsed.state:parsed;
+  if(!applyStateData(saved)) throw new Error("The backup does not contain a valid five-meal plan.");
+  saveState();renderAll();dialogClose(document.getElementById("dataDialog"));showToast("Backup imported");
+ }catch(exception){error.textContent=exception.message||"This backup could not be imported.";error.classList.add("show");}
+}
 function renderShopping(){
- var host=document.getElementById("shoppingHost"),rows=aggregateShopping(state.plan),out="",last="";
- rows.forEach(function(r){
+ var host=document.getElementById("shoppingHost"),rows=combinedShoppingRows(),out="",last="";
+ rows.forEach(function(r,index){
   if(r.aisle!==last){last=r.aisle;out+='<div class="aisle-title">'+safeText(last)+'</div>';}
-  var key=r.item+"|"+r.unit;
-  var checked=!!state.shoppingChecks[key];
-  out+='<label class="shop-row '+(checked?"checked":"")+(hideChecked&&checked?" hidden":"")+'" data-shop-key="'+safeText(key)+'" data-exact-quantity="'+safeText(String(r.qty))+'" data-unit="'+safeText(r.unit)+'">'+
-   '<input type="checkbox" class="shop-check" data-key="'+safeText(key)+'" '+(checked?"checked":"")+'>'+
-   '<span class="shop-copy"><b>'+safeText(r.item)+'</b><small>'+safeText(requiredText(r.qty,r.unit,r.item))+'</small></span></label>';
+  var checked=r.checkKeys.every(function(key){return !!state.shoppingChecks[key];});
+  var quantity=r.source==="manual"?manualQuantityText({quantity:r.qty,unit:r.unit}):requiredText(r.qty,r.unit,r.item);
+  var details=(quantity?'<small>'+safeText(quantity)+'</small>':'')+(r.note?'<small class="shop-note">'+safeText(r.note)+'</small>':'');
+  var checkId="shopCheck"+index,manualId=r.manualIds[0]||"";
+  out+='<div class="shop-row '+(checked?"checked":"")+(hideChecked&&checked?" hidden":"")+'" data-shop-key="'+safeText(r.checkKeys.join("||"))+'" data-source="'+safeText(r.source)+'" data-manual-id="'+safeText(manualId)+'" data-exact-quantity="'+safeText(r.qty===null?"":String(r.qty))+'" data-unit="'+safeText(r.unit)+'">'+
+   '<input id="'+checkId+'" type="checkbox" class="shop-check" data-check-keys="'+safeText(JSON.stringify(r.checkKeys))+'" '+(checked?"checked":"")+'>'+
+   '<label class="shop-copy" for="'+checkId+'"><b>'+safeText(r.item)+'</b>'+details+'</label>'+
+   (manualId?'<button type="button" class="shop-menu" data-action="edit-manual" data-manual-id="'+safeText(manualId)+'" aria-label="Edit '+safeText(r.item)+'">•••</button>':'')+'</div>';
  });
- host.innerHTML=out; updateProgress();
+ host.innerHTML=out;
+ document.getElementById("manualItemCount").textContent=state.manualItems.length?state.manualItems.length+" manual item"+(state.manualItems.length===1?"":"s")+" saved":"";
+ pendingRemoveManualIds=state.manualItems.filter(function(item){return !!state.shoppingChecks[manualCheckKey(item.id)];}).map(function(item){return item.id;});
+ document.getElementById("removeCheckedManual").disabled=!pendingRemoveManualIds.length;
+ updateProgress();
 }
 function updateProgress(){
  var boxes=Array.prototype.slice.call(document.querySelectorAll("#shoppingHost .shop-check"));
  var done=boxes.filter(function(b){return b.checked;}).length;
- var total=boxes.length, pct=total?Math.round(done/total*100):0;
+ var total=boxes.length,pct=total?Math.round(done/total*100):0;
  document.getElementById("progressText").textContent=done+" of "+total+" picked up";
  document.getElementById("progressPct").textContent=pct+"%";
  document.getElementById("progressBar").style.width=pct+"%";
@@ -732,10 +1010,43 @@ document.addEventListener("click",function(e){
   if(a==="dislike-recipe") dislikeRecipe(action.getAttribute("data-recipe"));
   if(a==="undo-dislike") undoDislike(action.getAttribute("data-recipe"));
   if(a==="swap") swapMeal(Number(action.getAttribute("data-index")));
+  if(a==="edit-manual") openManualItemDialog(action.getAttribute("data-manual-id"));
  }
 });
 document.getElementById("generateWeek").addEventListener("click",generateNewWeek);
 document.getElementById("restoreLastWeek").addEventListener("click",restoreLastWeek);
+document.getElementById("addManualItem").addEventListener("click",function(){openManualItemDialog("");});
+document.getElementById("manualItemForm").addEventListener("submit",function(e){e.preventDefault();submitManualItem();});
+document.getElementById("cancelManualItem").addEventListener("click",function(){dialogClose(document.getElementById("manualItemDialog"));});
+document.getElementById("manualName").addEventListener("blur",function(){
+ if(document.getElementById("manualItemId").value) return;
+ var remembered=state.categoryMemory[normalizeItemName(this.value)];
+ if(remembered&&document.getElementById("manualCategory").value==="Other") document.getElementById("manualCategory").value=remembered;
+});
+document.getElementById("deleteManualItem").addEventListener("click",function(){document.getElementById("manualDeleteConfirm").classList.add("show");});
+document.getElementById("cancelManualDelete").addEventListener("click",function(){document.getElementById("manualDeleteConfirm").classList.remove("show");});
+document.getElementById("confirmManualDelete").addEventListener("click",function(){
+ var id=document.getElementById("manualItemId").value;if(!id)return;
+ dialogClose(document.getElementById("manualItemDialog"));removeManualItems([id]);
+});
+document.getElementById("combineDuplicate").addEventListener("click",function(){
+ if(!pendingDuplicate)return;
+ var duplicate=state.manualItems.find(function(item){return item.id===pendingDuplicate.duplicateId;});
+ if(duplicate){
+  if(pendingDuplicate.item.id!==duplicate.id&&state.manualItems.some(function(item){return item.id===pendingDuplicate.item.id;})){
+   state.manualItems=state.manualItems.filter(function(item){return item.id!==pendingDuplicate.item.id;});
+   delete state.shoppingChecks[manualCheckKey(pendingDuplicate.item.id)];
+  }
+  combineManualItem(duplicate,pendingDuplicate.item);
+  state.categoryMemory[normalizeItemName(duplicate.name)]=duplicate.category;
+  saveState();renderShopping();showToast("Matching items combined");
+ }
+ pendingDuplicate=null;dialogClose(document.getElementById("duplicateDialog"));
+});
+document.getElementById("keepDuplicateSeparate").addEventListener("click",function(){
+ if(pendingDuplicate)finalizeManualItem(pendingDuplicate.item);
+ pendingDuplicate=null;dialogClose(document.getElementById("duplicateDialog"));
+});
 document.getElementById("weeklyPortions").addEventListener("change",function(){
  state.weeklyServings=validServings(this.value,4);
  saveState();renderAll();showToast("Weekly default updated to "+state.weeklyServings+" "+portionWord(state.weeklyServings));
@@ -755,14 +1066,33 @@ document.getElementById("hideChecked").addEventListener("click",function(){
 document.getElementById("resetChecks").addEventListener("click",function(){
  state.shoppingChecks={};saveState();renderShopping();showToast("Shopping ticks reset");
 });
+document.getElementById("removeCheckedManual").addEventListener("click",function(){
+ pendingRemoveManualIds=state.manualItems.filter(function(item){return !!state.shoppingChecks[manualCheckKey(item.id)];}).map(function(item){return item.id;});
+ if(!pendingRemoveManualIds.length){showToast("No checked manual items to remove");return;}
+ if(pendingRemoveManualIds.length===1){removeManualItems(pendingRemoveManualIds);return;}
+ document.getElementById("removeManualMessage").textContent="This will remove "+pendingRemoveManualIds.length+" checked manual items. Recipe ingredients will remain.";
+ dialogOpen(document.getElementById("removeManualDialog"));
+});
+document.getElementById("cancelRemoveManual").addEventListener("click",function(){dialogClose(document.getElementById("removeManualDialog"));});
+document.getElementById("confirmRemoveManual").addEventListener("click",function(){var ids=pendingRemoveManualIds.slice();dialogClose(document.getElementById("removeManualDialog"));removeManualItems(ids);});
 document.getElementById("shoppingHost").addEventListener("change",function(e){
  if(!e.target.classList.contains("shop-check")) return;
- var key=e.target.getAttribute("data-key");
- state.shoppingChecks[key]=e.target.checked;
+ var keys=[];try{keys=JSON.parse(e.target.getAttribute("data-check-keys")||"[]");}catch(error){console.warn(error);}
+ keys.forEach(function(key){state.shoppingChecks[key]=e.target.checked;});
  saveState();
  var row=e.target.closest(".shop-row"); row.classList.toggle("checked",e.target.checked);
  if(hideChecked && e.target.checked) row.classList.add("hidden");
+ pendingRemoveManualIds=state.manualItems.filter(function(item){return !!state.shoppingChecks[manualCheckKey(item.id)];}).map(function(item){return item.id;});
+ document.getElementById("removeCheckedManual").disabled=!pendingRemoveManualIds.length;
  updateProgress();
+});
+document.getElementById("exportData").addEventListener("click",function(){openDataDialog("export");});
+document.getElementById("importData").addEventListener("click",function(){openDataDialog("import");});
+document.getElementById("closeDataDialog").addEventListener("click",function(){dialogClose(document.getElementById("dataDialog"));});
+document.getElementById("applyImport").addEventListener("click",applyImportedData);
+document.getElementById("downloadData").addEventListener("click",function(){
+ var blob=new Blob([document.getElementById("dataText").value],{type:"application/json"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download="meal-planner-backup-"+new Date().toISOString().slice(0,10)+".json";link.click();setTimeout(function(){URL.revokeObjectURL(url);},0);
 });
 window.addEventListener("error",function(ev){
  var b=document.getElementById("errorBanner");b.textContent="App error: "+ev.message;b.classList.add("show");

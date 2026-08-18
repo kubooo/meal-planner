@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Weekly Meal Planner",
   "short_name": "Meal Planner",
-  "description": "Plan five high-protein dinners with flexible portions, nutrition, ratings, history, and one consolidated shopping list.",
+  "description": "Plan five high-protein dinners and manage one persistent shopping list for recipe ingredients and everyday items.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
